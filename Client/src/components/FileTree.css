@@ -1,0 +1,14 @@
+.file{
+    background-color: #212121;
+   
+}
+.eachFile{
+    padding:4px;
+    padding-left: 10px;
+
+}
+.eachFile:hover{
+    background-color: #414141;
+
+
+}
