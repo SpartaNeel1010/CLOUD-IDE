@@ -1,4 +1,9 @@
 # Frontend-react
 Commands to run the frontend
-npm install 
-npm run dev 
+
+```bash
+  npm install 
+```
+```bash
+  npm run dev 
+```
