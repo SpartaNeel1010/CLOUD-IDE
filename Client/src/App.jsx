@@ -8,25 +8,26 @@ import './App.css'
 
 function App() {
 
-    // For Terminal resizing not necessary to understand --- start
+    // #region For Terminal resizing not necessary to understand --- start
     const [editorWidth, setEditorWidth] = useState(80);  // Width percentage of CodeEditor
     const [terminalHeight, setTerminalHeight] = useState(30);  // Height percentage of Terminal
     const [isResizingEditor, setIsResizingEditor] = useState(false);
     const [isResizingTerminal, setIsResizingTerminal] = useState(false);
     const handleMouseDownEditor = () => setIsResizingEditor(true);
     const handleMouseDownTerminal = () => setIsResizingTerminal(true);
-    // For Terminal resizing not necessary to understand --- end
+    // #endregion For Terminal resizing not necessary to understand --- end
 
 
-    // State variables --- Start 
+    // #region State variables --- Start 
     const [openFiles, setOpenFiles] = useState(['one.js']);
     const [activeFile, setActiveFile] = useState('one.js');
     const [activePath,setActivePath]=useState('/one.js')
     const [openPaths, setOpenPaths] = useState(['/one.js']);
     const [fileTree,setFileTree]=useState({})
-    // State Vriables --- End
+    // #endregion State Vriables --- End
 
 
+    // Get and set the file tree when the component is mounted 
     useEffect(()=>{
         const fetchData = async () => {
             try {
@@ -48,7 +49,7 @@ function App() {
           fetchData();
         },[])
 
-    // For Terminal resizing not necessary to understand --- start
+    // #region For Terminal resizing not necessary to understand --- start
     const handleMouseMove = (e) => {
         if (isResizingEditor) {
 
@@ -83,7 +84,7 @@ function App() {
         };
     }, [isResizingEditor, isResizingTerminal]);
 
-    // For Terminal resizing not necessary to understand --- end
+    // #endregion For Terminal resizing not necessary to understand --- end
 
     return (
         <div className="playground">
