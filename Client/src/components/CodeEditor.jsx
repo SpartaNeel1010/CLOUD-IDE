@@ -4,9 +4,13 @@ import MonacoEditor from '@monaco-editor/react';
 import socket from './Socket.js';
 const CodeEditor = ({activePath,setActivePath,activeFile,setActiveFile, language = "javascript", theme = "vs-dark" }) => {
     
+  
+    // code Displayed in the editor
     const [code, setCode] = useState();
 
+    // Whenever active path changes it updates the code by fetching it from backend server endpoint 'http://localhost:3000/files/getdata'
     useEffect(() => {
+
       const fetchData = async () => {
         try {
           let response = await fetch("http://localhost:3000/files/getdata", {
@@ -35,34 +39,43 @@ const CodeEditor = ({activePath,setActivePath,activeFile,setActiveFile, language
 
 
 
+    // ------------Socket code-------------------
+
+    // Listens for active file change events from backend and changes the activepath
     socket.on('active-file:change-received',(data)=>{
       if(activeFile!==data)
-      setActiveFile(data)
-
+        setActiveFile(data)
+      
     })
+    // Whenever active file changes it sends data to the server using socket
     useEffect(()=>{
       socket.emit('active-file:change',activeFile)
     },[activeFile])
-
-
+  
+    // Listens for active path change events from backend and changes the activepath
     socket.on('active-path:change-received', (data) => {
       if (activePath !== data) setActivePath(data);
     });
-    
+
+    // Whenever active path changes it sends data to the server using socket
     useEffect(() => {
         socket.emit('active-path:change', activePath);
     }, [activePath]);
 
+    // ----------------Socket code end-------------------------
 
 
+    // Listens for code change events from backend and changes the code
     socket.on('code:data',(data)=>{
         setCode(data)
     })
+    // Fires whenever user types in the code editor and updates the code
     const handleEditorChange = (value) => {
         setCode(value)
-        // console.log(value)
+        // Sends the updated code to the backend
         socket.emit('code:write',value)
     };
+     // ----------------Socket code end-------------------------
 
 
   return (
