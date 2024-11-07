@@ -3,7 +3,7 @@ const fs = require('fs');
 const path=require('path')
 const router= express.Router()
 
-const dir = './home/sessions/username';
+const dir = __dirname.replace("/router","") +'/home/sessions/username';
 
 
 

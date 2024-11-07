@@ -87,9 +87,9 @@ const CodeEditor = ({activePath,setActivePath,activeFile,setActiveFile, language
         setCode(value)
         // Sends the updated code to the backend
         socket.emit('code:write',value)
-        if (editorRef.current) {
-          debouncedCompletions(editorRef.current);
-        }
+        // if (editorRef.current) {
+        //   debouncedCompletions(editorRef.current);
+        // }
     };
      // ----------------Socket code end-------------------------
 

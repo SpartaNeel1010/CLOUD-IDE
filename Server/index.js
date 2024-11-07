@@ -85,7 +85,7 @@ io.on('connection',(socket)=>{
     });
 
     socket.on('save:code',({path,code})=>{
-        const dir = './home/sessions/username';
+        const dir = __dirname+'/home/sessions/username';
         
         fs.writeFileSync(dir+path,code)
 
