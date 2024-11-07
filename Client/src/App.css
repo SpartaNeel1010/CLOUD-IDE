@@ -69,30 +69,7 @@
 
 /* App.css */
 /* App.css */
-.add-file-btn {
-    padding: 10px 20px;
-    background-color: #7710a3; /* Primary theme color */
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-    /* box-shadow: 0 4px 8px rgba(90, 18, 199, 0.2); Soft shadow using primary color */
-}
 
-.add-file-btn:hover {
-    background-color: #6f24a4; /* Darker shade for hover */
-    /* box-shadow: 0 6px 12px rgba(16, 163, 127, 0.4); Slightly larger shadow */
-    transform: translateY(-1px); /* Lift effect */
-}
-
-.add-file-btn:active {
-    background-color: #4d0b6e; /* Even darker for active state */
-    /* box-shadow: 0 3px 6px rgba(16, 163, 127, 0.2); Reduced shadow */
-    transform: translateY(1px); /* Pressed-down effect */
-}
 
 .playground {
     background-color: #212121; /* Background theme color */

@@ -1,7 +1,7 @@
 import React ,{useEffect, useState}from 'react'
 import Terminal from './components/Terminal'
 import CodeEditor from './components/CodeEditor'
-import FileOperations from './components/FileOperations'
+import FileOps from './components/FileOps'
 import FileTree from './components/FileTree'
 import FileTabs from './components/FileTabs'
 import './App.css'
@@ -86,7 +86,7 @@ function App() {
         <div className="playground">
             <div className="upper" style={{ height: `${100 - terminalHeight}%` }}>
                 <div className="files">
-                    <FileOperations></FileOperations>
+                    <FileOps></FileOps>
                     <div className="fileNames">
                     <FileTree tree={fileTree} 
                               path="" 

@@ -4,9 +4,11 @@ const {Server}=require('socket.io')
 const cors = require('cors');
 var pty = require('node-pty');
 var os = require('os');
-
+const fs = require('fs');
 
 // const ansiRegex = require('ansi-regex');
+
+
 
 const app=express()
 app.use(express.json()); 
@@ -73,10 +75,17 @@ io.on('connection',(socket)=>{
     socket.on('open-paths:change', (openPaths) => {
         socket.broadcast.emit('open-paths:change-received', openPaths);
     });
-    
+
     socket.on('active-path:change', (activePath) => {
         socket.broadcast.emit('active-path:change-received', activePath);
     });
+
+    socket.on('save:code',({path,code})=>{
+        const dir = '/usr/src/app/home/sessions/username';
+        
+        fs.writeFileSync(dir+path,code)
+
+    })
 })
 
 server.listen(3000,()=>{console.log("server listening at port 3000")})

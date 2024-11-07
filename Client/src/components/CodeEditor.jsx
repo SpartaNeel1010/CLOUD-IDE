@@ -36,7 +36,21 @@ const CodeEditor = ({activePath,setActivePath,activeFile,setActiveFile, language
       else
         fetchData();
     },[activePath])
+   
+    useEffect(()=>{
+      
+         const timer= setTimeout(()=>{
+          socket.emit('save:code',{
+            path:activePath,
+            code:code
+          })
 
+         },3000)
+         return ()=>{
+          clearTimeout(timer)
+         }
+      
+    },[code])
 
 
     // ------------Socket code-------------------
@@ -61,8 +75,6 @@ const CodeEditor = ({activePath,setActivePath,activeFile,setActiveFile, language
     useEffect(() => {
         socket.emit('active-path:change', activePath);
     }, [activePath]);
-
-    // ----------------Socket code end-------------------------
 
 
     // Listens for code change events from backend and changes the code
