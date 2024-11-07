@@ -79,6 +79,7 @@ const CodeEditor = ({activePath,setActivePath,activeFile,setActiveFile, language
 
 
   return (
+    
     <MonacoEditor
       height="60vh"
       language={language}
@@ -90,6 +91,8 @@ const CodeEditor = ({activePath,setActivePath,activeFile,setActiveFile, language
         automaticLayout: true,
       }}
     />
+  
+
   );
 };
 

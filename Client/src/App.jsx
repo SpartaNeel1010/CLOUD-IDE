@@ -116,6 +116,7 @@ function App() {
                         setOpenPaths={setOpenPaths}
                         openPaths={openPaths}
                     />
+                    <p style={{padding:"1px",fontSize:"14px", marginTop:"1px" ,color:"green"}}>{activePath && activePath.replaceAll("/"," > ")}</p>
                     <CodeEditor
                         // key={activeFile}  
                         activePath={activePath}
