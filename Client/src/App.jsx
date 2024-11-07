@@ -17,11 +17,14 @@ function App() {
     const handleMouseDownTerminal = () => setIsResizingTerminal(true);
     // For Terminal resizing not necessary to understand --- end
 
+
+    // State variables --- Start 
     const [openFiles, setOpenFiles] = useState(['one.js']);
     const [activeFile, setActiveFile] = useState('one.js');
     const [activePath,setActivePath]=useState('/one.js')
     const [openPaths, setOpenPaths] = useState(['/one.js']);
     const [fileTree,setFileTree]=useState({})
+    // State Vriables --- End
 
 
     useEffect(()=>{
