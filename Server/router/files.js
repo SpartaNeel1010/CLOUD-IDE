@@ -51,4 +51,45 @@ router.post("/getdata",(req,res)=>{
         res.json({content: data});
     })
 })
+
+
+router.post('/create-file', (req, res) => {
+    const { name } = req.body;
+    
+    if (!name) {
+        return res.status(400).json({ message: 'File name is required' });
+    }
+    
+    const filePath = path.join(dir, name);
+
+    fs.writeFile(filePath, '', (err) => {
+        if (err) {
+            console.error('Error creating file:', err);
+            return res.status(500).json({ message: 'Failed to create file' });
+        }
+        
+        res.status(201).json({ message: 'File created successfully', filePath });
+    });
+});
+
+// Endpoint to create a folder
+router.post('/create-folder', (req, res) => {
+    const { name } = req.body;
+
+    if (!name) {
+        return res.status(400).json({ message: 'Folder name is required' });
+    }
+    
+    const folderPath = path.join(dir, name);
+
+    fs.mkdir(folderPath, { recursive: true }, (err) => {
+        if (err) {
+            console.error('Error creating folder:', err);
+            return res.status(500).json({ message: 'Failed to create folder' });
+        }
+        
+        res.status(201).json({ message: 'Folder created successfully', folderPath });
+    });
+});
+
 module.exports = router;
