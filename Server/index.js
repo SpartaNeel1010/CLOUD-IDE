@@ -20,7 +20,11 @@ app.get("/health",(req,res)=>{
 
 
 const fileRoutes=require('./router/files')
-app.use("/files",fileRoutes)
+app.use("/files",fileRoutes);
+
+const completionRoutes=require('./router/completion')
+app.use("/completion",completionRoutes)
+
 
 var shell = 'bash';
 var path=process.env.PWD
