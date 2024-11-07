@@ -15,7 +15,7 @@ Client/package-lock.json
 Server/package-lock.json
 Client/yarn.lock
 Server/yarn.lock
-
+/Server/home/sessions/username
 # Ignore logs
 logs
 *.log
