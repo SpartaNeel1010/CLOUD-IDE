@@ -1,8 +1,8 @@
-// CodeEditor.js
+
 import React,{useEffect, useState} from 'react';
 import MonacoEditor from '@monaco-editor/react';
 import socket from './Socket.js';
-const CodeEditor = ({activeFile,setActiveFile, language = "javascript", theme = "vs-dark" }) => {
+const CodeEditor = ({activePath,setActivePath,activeFile,setActiveFile, language = "javascript", theme = "vs-dark" }) => {
     
     const [code, setCode] = useState();
 
@@ -14,7 +14,7 @@ const CodeEditor = ({activeFile,setActiveFile, language = "javascript", theme = 
             headers: {
               'Content-Type': 'application/json' 
             },
-            body: JSON.stringify({ "filename": activeFile })
+            body: JSON.stringify({ "filename": activePath })
           });
         
           if (!response.ok) {
@@ -31,18 +31,27 @@ const CodeEditor = ({activeFile,setActiveFile, language = "javascript", theme = 
         setCode('')
       else
         fetchData();
-    },[activeFile])
+    },[activePath])
 
 
 
     socket.on('active-file:change-received',(data)=>{
-      if(activeFile!=data)
+      if(activeFile!==data)
       setActiveFile(data)
 
     })
     useEffect(()=>{
       socket.emit('active-file:change',activeFile)
     },[activeFile])
+
+
+    socket.on('active-path:change-received', (data) => {
+      if (activePath !== data) setActivePath(data);
+    });
+    
+    useEffect(() => {
+        socket.emit('active-path:change', activePath);
+    }, [activePath]);
 
 
 

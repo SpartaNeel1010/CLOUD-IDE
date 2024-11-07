@@ -61,13 +61,22 @@ io.on('connection',(socket)=>{
     socket.on('code:write',(data)=>{
         socket.broadcast.emit('code:data',data)
     })
+
     socket.on('active-file:change',(activeFile)=>{
         socket.broadcast.emit('active-file:change-received',activeFile);
-
     })
+
     socket.on('open-files:change',(openFiles)=>{
         socket.broadcast.emit('open-file:change-recieved',openFiles);
     })
+
+    socket.on('open-paths:change', (openPaths) => {
+        socket.broadcast.emit('open-paths:change-received', openPaths);
+    });
+    
+    socket.on('active-path:change', (activePath) => {
+        socket.broadcast.emit('active-path:change-received', activePath);
+    });
 })
 
 server.listen(3000,()=>{console.log("server listening at port 3000")})

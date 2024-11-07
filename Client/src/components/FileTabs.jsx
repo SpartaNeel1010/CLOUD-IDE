@@ -1,42 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import socket from './Socket'
-function FileTabs({ openFiles,setOpenFiles, activeFile, setActiveFile }) {
+function FileTabs({ openFiles,setOpenFiles,openPaths,setOpenPaths,activePath, setActivePath, activeFile, setActiveFile }) {
     // Function to handle the close button click
     const [isProcessingServerUpdate, setIsProcessingServerUpdate] = useState(false);
+    const [isProcessingServerUpdatePaths, setIsProcessingServerUpdatePaths] = useState(false);
+    console.log(activePath)
 
     const closeFile = (file) => {
-        
-        if(file!=activeFile)
-            {
-                setOpenFiles(prev=>{
-                        const updatedFiles = prev.filter((f) => f !== file);
-                        // console.log(updatedFiles); // For debugging
-                        return updatedFiles;
-                    }
-                )
+        const fileIndex = openFiles.indexOf(file);
+        const filePath = openPaths[fileIndex];
 
-        }
-        else
-        {
-            setOpenFiles(prev=>{
+        if (file !== activeFile) {
+            setOpenFiles((prev) => prev.filter((f) => f !== file));
+            setOpenPaths((prev) => prev.filter((_, index) => index !== fileIndex));
+        } else {
+            setOpenFiles((prev) => {
                 const updatedFiles = prev.filter((f) => f !== file);
-                const currentIndex = prev.indexOf(file);
-                const newActiveFile = updatedFiles[currentIndex] || updatedFiles[currentIndex - 1] || ''; 
+                const newActiveFile = updatedFiles[fileIndex] || updatedFiles[fileIndex - 1] || '';
                 setActiveFile(newActiveFile);
-                return updatedFiles
-            })
-            
+                setActivePath(openPaths[openFiles.indexOf(newActiveFile)] || '');
+                return updatedFiles;
+            });
 
+            setOpenPaths((prev) => prev.filter((_, index) => index !== fileIndex));
         }
-
-       
     };
+    function arraysEqual(arr1, arr2) {
+        if (arr1.length !== arr2.length) return false;
+        return arr1.every((item, index) => item === arr2[index]);
+    }
     useEffect(() => {
         const handleServerUpdate = (openFilesNew) => {
-            function arraysEqual(arr1, arr2) {
-                if (arr1.length !== arr2.length) return false;
-                return arr1.every((item, index) => item === arr2[index]);
-            }
+            
 
             if (!arraysEqual(openFiles, openFilesNew)) {
                 setIsProcessingServerUpdate(true);
@@ -59,14 +54,45 @@ function FileTabs({ openFiles,setOpenFiles, activeFile, setActiveFile }) {
             setIsProcessingServerUpdate(false);
         }
     }, [openFiles]);
+
+    useEffect(() => {
+        
+        const handleServerUpdatePaths = (openPathsNew) => {
+            if (!arraysEqual(openPaths, openPathsNew)) {
+                setIsProcessingServerUpdatePaths(true);
+                setOpenPaths(openPathsNew);
+            }
+        };
+
+        socket.on('open-paths:change-received', handleServerUpdatePaths);
+
+        return () => {
+            socket.off('open-paths:change-received', handleServerUpdatePaths);
+        };
+    }, [openPaths, setOpenPaths]);
+
+    useEffect(() => {
+        if (!isProcessingServerUpdatePaths) {
+            socket.emit('open-paths:change', openPaths);
+        } else {
+            setIsProcessingServerUpdatePaths(false);
+        }
+    }, [openPaths]);
+
+
     return (
         <div className="file-tabs">
-            {openFiles.map((file) => (
+            {openFiles.map((file,index) => (
                 <div className="tab" key={file}>
+            
                     <div
                         key={file}
                         className={`file-tab ${file === activeFile ? 'active' : ''}`}
-                        onClick={() => setActiveFile(file)}
+                        onClick={() => {
+                            setActiveFile(file);
+        
+                            setActivePath(openPaths[index]);
+                        }}
                     >
                         {file}
                     </div>

@@ -19,7 +19,10 @@ function App() {
 
     const [openFiles, setOpenFiles] = useState(['one.js']);
     const [activeFile, setActiveFile] = useState('one.js');
+    const [activePath,setActivePath]=useState('/one.js')
+    const [openPaths, setOpenPaths] = useState(['/one.js']);
     const [fileTree,setFileTree]=useState({})
+
 
     useEffect(()=>{
         const fetchData = async () => {
@@ -85,7 +88,16 @@ function App() {
                 <div className="files">
                     <FileOperations></FileOperations>
                     <div className="fileNames">
-                    <FileTree tree={fileTree}  openFiles={openFiles} setOpenFiles={setOpenFiles} activeFile={activeFile} setActiveFile={setActiveFile} />
+                    <FileTree tree={fileTree} 
+                              path="" 
+                              activePath={activePath} 
+                              setActivePath={setActivePath} 
+                              openFiles={openFiles} 
+                              setOpenFiles={setOpenFiles} 
+                              activeFile={activeFile} 
+                              setActiveFile={setActiveFile} 
+                              setOpenPaths={setOpenPaths}
+                              openPath={openPaths}/>
                     </div>
                 </div>
                 
@@ -99,9 +111,15 @@ function App() {
                         setOpenFiles={setOpenFiles}
                         activeFile={activeFile}
                         setActiveFile={setActiveFile}
+                        setActivePath={setActivePath}
+                        activePath={activePath}
+                        setOpenPaths={setOpenPaths}
+                        openPaths={openPaths}
                     />
                     <CodeEditor
                         // key={activeFile}  
+                        activePath={activePath}
+                        setActivePath={setActivePath}
                         setActiveFile={setActiveFile}
                         activeFile={activeFile}
                         language="javascript"
