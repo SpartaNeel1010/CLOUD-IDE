@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import './FileOps.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-function FileOperations() {
+function FileOperations({setFileTree}) {
     const [showInput, setShowInput] = useState(false);
     const [inputType, setInputType] = useState(''); // 'file' or 'folder'
     const [inputValue, setInputValue] = useState('');
 
     const handleButtonClick = (type) => {
-        setShowInput(true);
+        setShowInput(!showInput);
         setInputType(type);
     };
 
@@ -21,22 +21,40 @@ function FileOperations() {
             handleSubmit();
         }
     };
+    const fetchData = async () => {
+        try {
+            let response = await fetch("http://localhost:3000/files/getallfiles");
+
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            
+            setFileTree(data)
+
+        }catch (error) {
+            console.error('Fetch error:', error);
+        }
+    };
 
     const handleSubmit = () => {
         if (inputValue.trim()) {
             // Send request to backend based on the type
             const endpoint = inputType === 'file' ? '/create-file' : '/create-folder';
-            fetch(endpoint, {
+            fetch("http://localhost:3000/files"+endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: inputValue })
             })
             .then(response => response.json())
-            .then(data => {
+            .then(async(data) => {
                 console.log(`${inputType} created successfully:`, data);
                 // Optionally clear the input and hide it
                 setInputValue('');
                 setShowInput(false);
+                await fetchData();
+
             })
             .catch(error => console.error(`Error creating ${inputType}:`, error));
         }

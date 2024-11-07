@@ -86,7 +86,7 @@ function App() {
         <div className="playground">
             <div className="upper" style={{ height: `${100 - terminalHeight}%` }}>
                 <div className="files">
-                    <FileOps></FileOps>
+                    <FileOps setFileTree={setFileTree}></FileOps>
                     <div className="fileNames">
                     <FileTree tree={fileTree} 
                               path="" 
