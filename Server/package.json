@@ -17,6 +17,7 @@
     "express": "^4.21.1",
     "node-pty": "^1.0.0",
     "nodemon": "^3.1.7",
+    "openai": "^4.71.1",
     "Server": "file:",
     "socket.io": "^4.8.1"
   }

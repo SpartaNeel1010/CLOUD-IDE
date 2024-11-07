@@ -1,7 +1,3 @@
-arr=[1,2,3]
-for(let i=0;i<arr.length;i++)
-{
-    console.log(arr[i])
-}
+arrr = [1,2,23,4]
 
-
+console.log(arrr)
