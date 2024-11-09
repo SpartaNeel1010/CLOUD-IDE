@@ -2,6 +2,7 @@ const express=require('express')
 const fs = require('fs');
 const path=require('path')
 const router= express.Router()
+const { exec } = require('child_process');
 
 const dir = __dirname.replace("/router","") +'/home/sessions/username';
 
@@ -30,6 +31,7 @@ function generateFileTree(directory){
     buildTree(directory,tree)
     return tree;
 }
+
 
 
 
@@ -89,6 +91,35 @@ router.post('/create-folder', (req, res) => {
         }
         
         res.status(201).json({ message: 'Folder created successfully', folderPath });
+    });
+});
+
+router.post('/runcode', (req, res) => {
+    const { path: filePath } = req.body;
+
+    if (!filePath) {
+        return res.status(400).json({ error: 'Path is required in the request body' });
+    }
+
+    // Resolve to an absolute path to avoid any path traversal issues
+    var path=process.env.PWD
+    path+='/home/sessions/username'
+    path+=filePath
+    console.log(path)
+
+    // Run the specified JavaScript file using `node`
+    exec(`node ${path}`, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Execution error: ${error.message}`);
+            return res.json({ output: stderr });
+        }
+        if (stderr) {
+            console.error(`Execution stderr: ${stderr}`);
+            return res.json({ output: stderr });
+        }
+
+        // Send back the output as a JSON response
+        res.json({ output: stdout });
     });
 });
 

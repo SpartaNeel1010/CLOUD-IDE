@@ -130,21 +130,22 @@
     background-color: #1e1e1e;
     
 }
-
-
-/* .divider-vertical:hover
-{
-    cursor: not-allowed;
-} */
+.code-runner-div{
+    min-width: 300px;
+}
 
 .divider-horizontal:hover{
     background-color: rgb(20, 174, 245);;
 }
-.divider-vertical:active
-{
-    cursor: not-allowed;
-}
+
 
 .divider-horizontal:active{
     background-color: rgb(20, 174, 245);;
 }
+
+/* App.css */
+.assistant-modal {
+    background-color: #222; /* Dark background */
+    color: #fff;            /* Light text */
+  }
+  

@@ -1,0 +1,38 @@
+/* CodeRunner.css */
+
+.coderun {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 5px;
+    width: 100%;
+    font-family: Consolas, "Courier New", monospace;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height:100%;
+}
+
+.runButton {
+    background-color: #2b2b2b;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    /* border-radius: 3px; */
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.45rem;
+}
+
+.runButton:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+.output {
+    margin: 1rem;
+    background-color: #252526;
+    padding: 1rem;
+    border-radius: 3px;
+    font-size: 14px;
+    white-space: pre-wrap; 
+    height:70%;
+    width:80%;
+}

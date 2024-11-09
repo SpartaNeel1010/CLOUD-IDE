@@ -46,7 +46,7 @@ const CodeEditor = ({activePath,setActivePath,activeFile,setActiveFile, language
             code:code
           })
 
-         },3000)
+         },1000)
          return ()=>{
           clearTimeout(timer)
          }
