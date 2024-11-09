@@ -8,15 +8,13 @@ import './App.css';
 import CodeRunner from './components/CodeRunner';
 import "@assistant-ui/react/styles/index.css";
 import "@assistant-ui/react/styles/modal.css"; 
-import { AssistantModal, useEdgeRuntime } from "@assistant-ui/react";
+import ChatWidget from './components/ChatWindow';
 
 
 function App() {
 
 
-    const runtime = useEdgeRuntime({
-        api: "http://localhost:3000/completion",
-      });
+    
 
     
     // State variables for dimensions
@@ -170,7 +168,7 @@ function App() {
             <div className="terminal" style={{ height: `${terminalHeight}%` }}>
                 <Terminal />
             </div>
-            <AssistantModal runtime={runtime} />;
+            <ChatWidget />
 
         </div>
     );
