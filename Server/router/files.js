@@ -102,13 +102,17 @@ router.post('/runcode', (req, res) => {
     }
 
     // Resolve to an absolute path to avoid any path traversal issues
-    var path=process.env.PWD
-    path+='/home/sessions/username'
-    path+=filePath
-    console.log(path)
+    var fullPath = process.env.PWD;
+    fullPath += '/home/sessions/username';
+    fullPath += filePath;
+    
+    // Escape spaces and special characters in the path
+    const escapedPath = `"${fullPath.replace(/"/g, '\\"')}"`;
+    
+    console.log('Executing file:', escapedPath);
 
-    // Run the specified JavaScript file using `node`
-    exec(`node ${path}`, (error, stdout, stderr) => {
+    // Run the specified JavaScript file using `node` with the escaped path
+    exec(`node ${escapedPath}`, (error, stdout, stderr) => {
         if (error) {
             console.error(`Execution error: ${error.message}`);
             return res.json({ output: stderr });
