@@ -26,6 +26,7 @@ const formatMessage = (content) => {
   
     // Handle newlines for regular text
     formatted = formatted.replace(/\n/g, '<br>');
+    formatted = formatted.replace(/\//, '');
   
     // Restore inline code
     inlineCode.forEach((code, i) => {
@@ -79,7 +80,7 @@ const ChatWidget = ({code}) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ messages: code+"\n"+inputMessage }),
+        body: JSON.stringify({ messages: "IF code is to be generated generate it in seperate box\n"+code+"\n"+inputMessage }),
       });
 
       if (!response.ok) {
