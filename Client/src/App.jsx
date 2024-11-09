@@ -8,7 +8,7 @@ import './App.css';
 import CodeRunner from './components/CodeRunner';
 import "@assistant-ui/react/styles/index.css";
 import "@assistant-ui/react/styles/modal.css"; 
-import ChatWidget from './components/ChatWindow';
+
 
 
 function App() {
@@ -168,7 +168,7 @@ function App() {
             <div className="terminal" style={{ height: `${terminalHeight}%` }}>
                 <Terminal />
             </div>
-            <ChatWidget />
+            
 
         </div>
     );
