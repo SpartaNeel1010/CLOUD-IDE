@@ -26,6 +26,9 @@ app.use("/files",fileRoutes);
 const completionRoutes=require('./router/completion')
 app.use("/completion",completionRoutes);
 
+const aws_ecs=require('./router/aws-ecs')
+app.use("/aws",aws_ecs);
+
 // const completionRoutes=require('./router/completion')
 // app.use("/completion",completionRoutes)
 

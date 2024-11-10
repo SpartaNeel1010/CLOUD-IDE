@@ -12,7 +12,9 @@
   "dependencies": {
     "@aws-sdk/client-ec2": "^3.687.0",
     "@aws-sdk/client-ecs": "^3.687.0",
+    "@aws-sdk/credential-providers": "^3.687.0",
     "ansi-regex": "^6.1.0",
+    "aws-sdk": "^2.1692.0",
     "axios": "^1.7.7",
     "child-process": "^1.0.2",
     "cross-spawn": "^7.0.3",
