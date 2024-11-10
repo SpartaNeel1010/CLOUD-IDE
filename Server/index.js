@@ -30,14 +30,15 @@ app.use("/completion",completionRoutes);
 // app.use("/completion",completionRoutes)
 
 
-var shell = 'bash';
-var path=process.env.PWD
-path+='/home/sessions/username'
+console.log(__dirname)
+let shell='bash'
+const dir =  __dirname + '/home/sessions/username';
+// path+='/home/sessions/username'
 var ptyProcess = pty.spawn(shell, [], {
     name: 'xterm-color',
     cols: 80,
     rows: 30,
-    cwd: path,
+    cwd: dir,
     env: {...process.env}
   });
 // console.log(process.env)
