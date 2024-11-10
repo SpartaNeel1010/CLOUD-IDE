@@ -4,7 +4,9 @@ const path=require('path')
 const router= express.Router()
 const { exec } = require('child_process');
 
-const dir = __dirname.replace("/router","") +'/home/sessions/username';
+// console.log(__dirname)
+
+const dir =  __dirname.replace("/router","") + '/home/sessions/username';
 
 
 
@@ -102,11 +104,13 @@ router.post('/runcode', (req, res) => {
     }
 
     // Resolve to an absolute path to avoid any path traversal issues
-    var fullPath = process.env.PWD;
-    fullPath += '/home/sessions/username';
-    fullPath += filePath;
+    // var fullPath = process.env.PWD;
+    // fullPath += '/home/sessions/username';
+    // fullPath += filePath;
+    const fullPath = path.join(dir, filePath);
     
     // Escape spaces and special characters in the path
+    console.log(fullPath)
     const escapedPath = `"${fullPath.replace(/"/g, '\\"')}"`;
     
     console.log('Executing file:', escapedPath);
