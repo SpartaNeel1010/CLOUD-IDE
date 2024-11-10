@@ -4,6 +4,7 @@ import './ChatWindow.css';
 
 const formatMessage = (content) => {
     // First convert literal \n to actual newlines
+    console.log("Just checking")
     let formatted = content.replace(/\\n/g, '\n');
     
     // Store code blocks temporarily
