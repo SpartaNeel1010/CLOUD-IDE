@@ -4,7 +4,7 @@ import CodeEditor from './components/CodeEditor';
 import FileOps from './components/FileOps';
 import FileTree from './components/FileTree';
 import FileTabs from './components/FileTabs';
-import './App.css';
+import './CloudIDE.css';
 import CodeRunner from './components/CodeRunner';
 import "@assistant-ui/react/styles/index.css";
 import "@assistant-ui/react/styles/modal.css"; 

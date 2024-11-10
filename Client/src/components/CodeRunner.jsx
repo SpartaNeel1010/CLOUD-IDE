@@ -12,21 +12,21 @@ const CodeRunner = ({ activePath }) => {
             const response = await fetch('http://localhost:3000/files/runcode', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  path:activePath,
-                  language:'javascript'
+                    path: activePath,
+                    language: 'javascript'
                 }),
             });
-        
+
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);
             }
-        
+
             const result = await response.json();
-            
-            setOutput(result.output); 
+
+            setOutput(result.output);
         } catch (error) {
             setOutput(`Error: ${error.message}`);
         } finally {
@@ -36,9 +36,12 @@ const CodeRunner = ({ activePath }) => {
 
     return (
         <div className="coderun">
-            <button onClick={handleRun} className="runButton" disabled={loading}>
-                {loading ? 'Running...' : 'Run ▶️'}
+            
+            <button  onClick={handleRun} disabled={loading} className="run-button">
+                <span>Run</span>
+                <span className="play-icon">▶</span>
             </button>
+
             <div className="output">
                 {output || "Code Output will appear here..."}
             </div>
