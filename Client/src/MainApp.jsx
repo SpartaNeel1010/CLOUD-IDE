@@ -3,9 +3,12 @@ import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import LoginPage from './components/LoginPage';
 import CloudIDE from './CloudIDE';
-import Navbar from './components/NavBar';
+import Navbar from './components/Navbar';
+import Dashboard from './components/Dashboard';
 
 function MainApp() {
+  const username = "YourUsername"; // Replace this with actual username retrieval logic
+
   return (
     <AuthProvider>
       <Router>
@@ -15,7 +18,16 @@ function MainApp() {
             path="/"
             element={
               <ProtectedRoute>
-                <Navbar></Navbar>
+                <Navbar username={username} />
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/project/:projectId"
+            element={
+              <ProtectedRoute>
+                <Navbar username={username} />
                 <CloudIDE />
               </ProtectedRoute>
             }
