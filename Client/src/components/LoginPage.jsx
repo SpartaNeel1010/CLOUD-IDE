@@ -182,7 +182,7 @@ const AuthForms = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="EMAIL"
+                placeholder="Email"
                 value={loginData.email}
                 onChange={handleLoginChange}
                 required
@@ -190,7 +190,7 @@ const AuthForms = () => {
               <input
                 type="password"
                 name="password"
-                placeholder="PASSWORD"
+                placeholder="Password"
                 value={loginData.password}
                 onChange={handleLoginChange}
                 required
@@ -201,7 +201,7 @@ const AuthForms = () => {
               <input
                 type="text"
                 name="name"
-                placeholder="USERNAME"
+                placeholder="Username"
                 value={SignupData.name}
                 onChange={handleSignupChange}
                 required
@@ -209,7 +209,7 @@ const AuthForms = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="EMAIL"
+                placeholder="Email"
                 value={SignupData.email}
                 onChange={handleSignupChange}
                 required
@@ -217,7 +217,7 @@ const AuthForms = () => {
               <input
                 type="password"
                 name="password"
-                placeholder="PASSWORD"
+                placeholder="Password"
                 value={SignupData.password}
                 onChange={handleSignupChange}
                 required
