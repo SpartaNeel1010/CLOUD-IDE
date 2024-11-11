@@ -50,7 +50,7 @@ const AuthForms = () => {
   const Login = async () => {
     try {
       console.log(loginData)
-      const endpoint = "http://localhost:5001/user/login";
+      const endpoint = "http://authentication-load-balancer-265334937.us-east-1.elb.amazonaws.com/user/login";
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -93,7 +93,7 @@ const AuthForms = () => {
   const CreateUser = async () => {
     console.log(SignupData)
     try {
-      const endpoint = "http://localhost:5001/user/createuser";
+      const endpoint = "http://authentication-load-balancer-265334937.us-east-1.elb.amazonaws.com/user/createuser";
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
