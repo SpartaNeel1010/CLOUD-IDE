@@ -11,7 +11,7 @@ import "@assistant-ui/react/styles/modal.css";
 
 
 
-function App() {
+function CloudIDE() {
 
 
     
@@ -174,4 +174,4 @@ function App() {
     );
 }
 
-export default App;
+export default CloudIDE;

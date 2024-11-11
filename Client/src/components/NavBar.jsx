@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
-
+import { AuthContext } from '../context/AuthContext';
 const Navbar = ({ username, isProjectSelected }) => {
+  const {user}=useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
@@ -18,7 +19,7 @@ const Navbar = ({ username, isProjectSelected }) => {
         {/* Project Label - Only shown if a project is selected */}
         {isProjectSelected && (
           <div className="project-label">
-            <span className="project-name">{username}</span>
+            <span className="project-name">{user}</span>
           </div>
         )}
       </div>
@@ -35,8 +36,8 @@ const Navbar = ({ username, isProjectSelected }) => {
         <button className="nav-button-text run-button">Invite</button>
 
         <div className="username-label">
-          <span className="username-name">{username}</span>
-          <div className="username-icon">{username.charAt(0).toUpperCase()}</div>
+          <span className="username-name">{user}</span>
+          <div className="username-icon">{user.charAt(0).toUpperCase()}</div>
         </div>
       </div>
     </nav>

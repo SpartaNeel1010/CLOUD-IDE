@@ -48,7 +48,7 @@ router.post("/createuser",[
         let u=await user.save()
         console.log(u)
         const token = jwt.sign({ id: u._id, email: u.email }, secretKey, {
-            expiresIn: '1h' 
+            expiresIn: '12h' 
           });
         console.log(token)
         success=true
@@ -86,12 +86,12 @@ router.post("/login",[
             return res.status(400).json({success,"error":"Enter valid credentials"})
         }
         bcrypt.compare(password,user.password).then((result)=>{
-            const token = jwt.sign({ _id: user._id, email: user.email }, secretKey, {
-                expiresIn: '1h' 
+            const token = jwt.sign({ name: user.name, email: user.email }, secretKey, {
+                expiresIn: '12h' 
               });
             // console.log(token)
             success=true
-            res.json({success,token})
+            res.json({name:user.name,success,token})
 
         }).catch((error)=>{
             console.log(error)

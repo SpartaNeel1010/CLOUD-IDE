@@ -9,17 +9,20 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check if user is logged in (e.g., check localStorage or session)
-    const token = localStorage.getItem('authToken');
-    if (token) {
+    
+    if (checkLogin()) {
       // You might want to validate the token with your backend here
-      setUser({ token });
+      const token=localStorage.getItem('authToken')
+      const decodedToken = jwtDecode(token);
+      const username=decodedToken.name
+      setUser(username);
     }
     setLoading(false);
   }, []);
 
   const login = (userData) => {
     console.log("In login function")
-    setUser(userData);
+    setUser(userData.name);
     localStorage.setItem('authToken', userData.token);
     
   };
