@@ -11,12 +11,7 @@ import "@assistant-ui/react/styles/modal.css";
 
 
 
-function App() {
-
-
-    
-
-    
+function App() {    
     // State variables for dimensions
     const [fileTreeWidth, setFileTreeWidth] = useState(20); // Left sidebar (FileTree) width percentage
     const [editorWidth, setEditorWidth] = useState(60);  
