@@ -9,7 +9,7 @@ const router = express.Router();
 // Define the route to hit the OpenAI API
 router.post('/', async (req, res) => {
     const { messages } = req.body; // Expecting an array of messages
-    // console.log(messages)
+    console.log(messages)
 
     if (!messages || messages.length === 0) {
         return res.status(400).send({ error: 'Messages are required' });
@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
           });
 
         // If response is successful, parse and send the data
-        // console.log(response)
+        console.log(response)
         if (!response.ok) {
             throw new Error('Failed to fetch from OpenAI');
         }

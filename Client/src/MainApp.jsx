@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -7,7 +8,9 @@ import CloudIDE from './CloudIDE';
 import Dashboard from './components/Dashboard';
 
 function MainApp() {
-  // Replace this with actual username retrieval logic
+  const [isProjectSelected, setIsProjectSelected] = useState(false);
+  // const username = "YourUsername"; 
+
   return (
     <AuthProvider>
       <Router>
@@ -17,8 +20,8 @@ function MainApp() {
             path="/"
             element={
               <ProtectedRoute>
-                <Navbar  />
-                <Dashboard />
+                <Navbar isProjectSelected={isProjectSelected} />
+                <Dashboard setIsProjectSelected={setIsProjectSelected} />
               </ProtectedRoute>
             }
           />
@@ -26,8 +29,8 @@ function MainApp() {
             path="/project/:projectId"
             element={
               <ProtectedRoute>
-                <Navbar />
-                <CloudIDE />
+                <Navbar isProjectSelected={isProjectSelected} />
+                <CloudIDE setIsProjectSelected={setIsProjectSelected} />
               </ProtectedRoute>
             }
           />
