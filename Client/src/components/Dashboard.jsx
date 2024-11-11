@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 
-function Dashboard() {
+function Dashboard({ setIsProjectSelected }) {
   const navigate = useNavigate();
 
-  // Sample projects list (replace this with real data fetching logic)
+  // Ensure `isProjectSelected` is `false` when navigating to the Dashboard
+  useEffect(() => {
+    setIsProjectSelected(false);
+  }, [setIsProjectSelected]);
+
+  // Sample projects list (replace with real data fetching logic)
   const projects = [
     { id: '1', name: 'Local landmarks map' },
     { id: '2', name: 'Stock analysis' },
@@ -15,6 +20,7 @@ function Dashboard() {
   ];
 
   const handleProjectClick = (projectId) => {
+    setIsProjectSelected(true); // Set to true when a project is selected
     navigate(`/project/${projectId}`);
   };
 

@@ -12,12 +12,7 @@ import "@assistant-ui/react/styles/modal.css";
 
 
 function CloudIDE() {
-
-
-    
-
-    
-    // State variables for dimensions
+     // State variables for dimensions
     const [fileTreeWidth, setFileTreeWidth] = useState(20); // Left sidebar (FileTree) width percentage
     const [editorWidth, setEditorWidth] = useState(60);  
     const [codeRunnerWidth, setCodeRunnerWidth] = useState(20); // Width percentage of CodeRunner
