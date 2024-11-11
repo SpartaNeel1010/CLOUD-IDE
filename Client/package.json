@@ -17,10 +17,13 @@
     "@xterm/xterm": "^5.5.0",
     "axios": "^1.7.7",
     "client": "file:",
+    "jwt-decode": "^4.0.0",
     "monacopilot": "^0.14.0",
     "react": "^18.3.1",
     "react-console-emulator": "^5.0.2",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
+    "react-router-dom": "^6.28.0",
     "socket.io-client": "^4.8.1",
     "xterm": "^5.3.0"
   },
