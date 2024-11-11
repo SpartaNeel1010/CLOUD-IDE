@@ -13,7 +13,7 @@ const fs = require('fs');
 const app=express()
 app.use(express.json()); 
 app.use(cors({
-    origin: 'http://localhost:5173', 
+    origin: '*', 
   }));
 
 app.get("/health",(req,res)=>{
@@ -57,7 +57,7 @@ ptyProcess.onData(async (data)=>{
 })
 const io= new Server(server,{
     cors:{
-        origin:"http://localhost:5173"
+        origin:"*"
     }
 })
 io.on('connection',(socket)=>{

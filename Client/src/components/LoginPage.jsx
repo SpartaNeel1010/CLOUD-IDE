@@ -50,7 +50,7 @@ const AuthForms = () => {
   const Login = async () => {
     try {
       console.log(loginData)
-      const endpoint = "http://localhost:5000/user/login";
+      const endpoint = "http://localhost:5001/user/login";
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -93,7 +93,7 @@ const AuthForms = () => {
   const CreateUser = async () => {
     console.log(SignupData)
     try {
-      const endpoint = "http://localhost:5000/user/createuser";
+      const endpoint = "http://localhost:5001/user/createuser";
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {

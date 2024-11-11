@@ -19,7 +19,7 @@ const UserRoutes=require("./routes/user")
 
 app.use("/user",UserRoutes)
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 5001
 app.listen(port,()=>{
     console.log(`Listening at ${port}`)
 
