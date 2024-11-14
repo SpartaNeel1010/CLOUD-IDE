@@ -1,6 +1,7 @@
 # Ignore node_modules for both Client and Server
 Client/node_modules/
 Server/node_modules/
+node_modules
 
 # Ignore build or distribution folders (if generated)
 Client/dist/
