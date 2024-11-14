@@ -128,3 +128,212 @@
 .version-badge:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
+
+/* UserDropdown.css */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.username-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.username-wrapper:hover {
+  background-color: #f5f5f5;
+}
+
+.username-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.username-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #4a90e2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 200px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eaeaea;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 10px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #eaeaea;
+  margin: 4px 0;
+}
+
+.logout-button {
+  color: #dc3545;
+}
+
+/* Optional: Add animation for dropdown */
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-menu {
+  animation: dropdownFade 0.2s ease-out;
+}
+
+
+
+
+
+
+
+/* UserDropdown.css */
+:root {
+    --vscode-bg: #1e1e1e;
+    --vscode-dropdown-bg: #252526;
+    --vscode-hover-bg: #2a2d2e;
+    --vscode-text: #cccccc;
+    --vscode-highlight: #2b2b2b;
+    --vscode-border: #454545;
+    --vscode-blue: #4d9fff;
+    --vscode-red: #f14c4c;
+    --vscode-icon-bg: #2d2d2d;
+  }
+  
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .username-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: var(--vscode-bg);
+    border: 1px solid var(--vscode-border);
+    transition: background-color 0.2s ease;
+  }
+  
+  .username-wrapper:hover {
+    background-color: var(--vscode-hover-bg);
+  }
+  
+  .username-name {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--vscode-text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+  
+  .username-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background-color: var(--vscode-icon-bg);
+    color: var(--vscode-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 13px;
+    border: 1px solid var(--vscode-border);
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    width: 200px;
+    background-color: var(--vscode-dropdown-bg);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--vscode-border);
+    z-index: 1000;
+    padding: 6px 0;
+  }
+  
+  .dropdown-item {
+    width: 100%;
+    padding: 6px 12px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--vscode-text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    transition: background-color 0.2s ease;
+  }
+  
+  .dropdown-item:hover {
+    background-color: var(--vscode-hover-bg);
+  }
+  
+  .dropdown-divider {
+    height: 1px;
+    background-color: var(--vscode-border);
+    margin: 6px 0;
+  }
+  
+  .logout-button {
+    color: var(--vscode-red);
+  }
+  
+  @keyframes dropdownFade {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .dropdown-menu {
+    animation: dropdownFade 0.1s ease-out;
+  }

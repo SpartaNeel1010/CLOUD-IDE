@@ -1,11 +1,31 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { useNavigate ,useParams,useLocation} from 'react-router-dom';
 import './Navbar.css';
 import { AuthContext } from '../context/AuthContext';
-
-const Navbar = ({ isProjectSelected, selectedProjectName }) => {
-  const {user}=useContext(AuthContext);
+import { ProjectContext } from '../context/ProjectContext';
+const Navbar = ({selectedProjectName }) => {
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  
+  const location=useLocation().pathname;
+  
+  const isProjectTab=location.includes("project");
+  const {ActiveProject }=useContext(ProjectContext)
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <nav className="navbar">
@@ -18,22 +38,63 @@ const Navbar = ({ isProjectSelected, selectedProjectName }) => {
         </button>
 
         {/* Project Label - Only shown if a project is selected */}
-        {isProjectSelected && (
+        {isProjectTab && (
           <div className="project-label">
-            <span className="project-name">{selectedProjectName}</span>
+            <span className="project-name">{ActiveProject}</span>
           </div>
         )}
       </div>
 
       <div className="nav-right">
         {/* Invite Button - Only shown if a project is selected */}
-        {isProjectSelected && (
+        {isProjectTab && (
           <button className="nav-button-text run-button">Invite</button>
         )}
 
-        <div className="username-label">
-          <span className="username-name">{user}</span>
-          <div className="username-icon">{user.charAt(0).toUpperCase()}</div>
+        <div className="dropdown-container" ref={dropdownRef}>
+          <div
+            className="username-wrapper"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <span className="username-name">{user}</span>
+            <div className="username-icon">
+              {user.charAt(0).toUpperCase()}
+            </div>
+          </div>
+
+          {isOpen && (
+            <div className="dropdown-menu">
+              <button
+                onClick={() => {
+                  // onProfileClick();
+                  setIsOpen(false);
+                }}
+                className="dropdown-item"
+              >
+                View Profile
+              </button>
+              <button
+                onClick={() => {
+                  // onProjectsClick();
+                  setIsOpen(false);
+                }}
+                className="dropdown-item"
+              >
+                Previous Projects
+              </button>
+              <div className="dropdown-divider" />
+              <button
+                onClick={() => {
+                  logout();
+                  setIsOpen(false);
+                  navigate("/login")
+                }}
+                className="dropdown-item logout-button"
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </nav>

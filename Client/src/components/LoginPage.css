@@ -15,7 +15,7 @@
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ff8f00;
+  color: #0091ff;
   margin-bottom: 2rem;
 }
 
@@ -104,7 +104,7 @@
 .submit-button {
   width: 100%;
   padding: 0.8rem;
-  background-color: #ff8f00;
+  background-color: #0091ff;
   color: white;
   border: none;
   border-radius: 4px;
@@ -114,7 +114,7 @@
 }
 
 .submit-button:hover {
-  background-color: #f57c00;
+  background-color: #0091ff;
 }
 
 .submit-button:disabled {
@@ -141,7 +141,7 @@
 .auth-switch button {
   background: none;
   border: none;
-  color: #ff8f00;
+  color: #0091ff;
   cursor: pointer;
   font-size: 0.9rem;
   padding: 0;
@@ -152,7 +152,7 @@
 }
 
 a {
-  color: #ff8f00;
+  color: #0091ff;
   text-decoration: none;
 }
 

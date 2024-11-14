@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ProjectProvider } from './context/ProjectContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import LoginPage from './components/LoginPage';
 import Navbar from './components/Navbar';
@@ -8,11 +9,12 @@ import CloudIDE from './CloudIDE';
 import Dashboard from './components/Dashboard';
 
 function MainApp() {
-  const [isProjectSelected, setIsProjectSelected] = useState(false);
-  // const username = "YourUsername"; 
+  
+ 
 
   return (
     <AuthProvider>
+    <ProjectProvider>
       <Router>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
@@ -20,22 +22,23 @@ function MainApp() {
             path="/"
             element={
               <ProtectedRoute>
-                <Navbar isProjectSelected={isProjectSelected} />
-                <Dashboard setIsProjectSelected={setIsProjectSelected} />
+                <Navbar />
+                <Dashboard />
               </ProtectedRoute>
             }
           />
           <Route
-            path="/project/:projectId"
+            path="/project"
             element={
               <ProtectedRoute>
-                <Navbar isProjectSelected={isProjectSelected} />
-                <CloudIDE setIsProjectSelected={setIsProjectSelected} />
+                <Navbar  />
+                <CloudIDE />
               </ProtectedRoute>
             }
           />
         </Routes>
       </Router>
+    </ProjectProvider>
     </AuthProvider>
   );
 }

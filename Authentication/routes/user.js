@@ -86,7 +86,7 @@ router.post("/login",[
             return res.status(400).json({success,"error":"Enter valid credentials"})
         }
         bcrypt.compare(password,user.password).then((result)=>{
-            const token = jwt.sign({ name: user.name, email: user.email }, secretKey, {
+            const token = jwt.sign({ _id:user._id ,name: user.name, email: user.email }, secretKey, {
                 expiresIn: '12h' 
               });
             // console.log(token)
