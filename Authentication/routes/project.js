@@ -3,6 +3,7 @@ const router=express.Router()
 const Project=require("../models/project")
 const { check, validationResult } = require('express-validator');
 const fetchuser=require('../middleware/fetchuser.js')
+const copyS3Folder=require("./aws.js")
 
 
 // fetch all the notes belonging to the logged in user 
@@ -31,10 +32,15 @@ router.post("/createproject",fetchuser,[
     // console.log(project)
     try {
         let projectsaved=await project.save()
+        console.log(req.body._id)
+        console.log(project.title)
+        console.log(process.env.S3_BUCKET)
+        await copyS3Folder("base-code/java-script/",`code/${req.body._id}/${project._id}/`)
+
         res.send(projectsaved)
         
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         res.status(500).send(error)
         
     }
@@ -42,57 +48,17 @@ router.post("/createproject",fetchuser,[
 
 })
 
-// router.put("/updatenote/:id",fetchuser,async (req,res)=>{
-//     const noteID=req.params.id;
-//     let {title,description,tag}=req.body
-//     let newNote= {}
-//     if(title){newNote.title=title}
-//     if(description){newNote.description=description}
-//     if(tag){newNote.tag=tag}
-    
-
-//     try {
-//         let note=await Note.findOne({_id:noteID})
-//         console.log(note)
-//         if(!note)
-//             return res.status(404).send("No note found")
-//         console.log(note.userID)
-//         console.log(req.body._id)
-//         console.log(noteID)
-        
-//         if(note.userID!=req.body._id)
-//            return res.status(401).send("Unauthorized")
-//         console.log(newNote)
-//         const updatedNote = await Note.findByIdAndUpdate(
-//             noteID, // The ID of the note to update
-//             newNote, // Fields to update
-//             { new: true } // Return the updated note
-//           );
-          
-//           if (updatedNote) {
-//             console.log('Note updated successfully:', updatedNote);
-//           } else {
-//             console.log('Note not found');
-//           }
-//         return res.json(updatedNote)
-        
-//     } catch (error) {
-//         res.send(error)
-        
-//     }
-// })
-
 router.delete('/deleteproject/:id',fetchuser,async(req,res)=>{
     const projID=req.params.id;
     try
     {
-        console.log(projID)
+        // console.log(projID)
         let project=await Project.findOne({_id:projID})
         console.log(project)
         if(!project)
             return res.status(404).send("No note found")
-        console.log(project.userID)
-        console.log(req.body._id)
+        // console.log(project.userID)
+        // console.log(req.body._id)
         
         // if(note.userID!==req.body._id)
         //     return res.status(401).send("Unauthorized")
