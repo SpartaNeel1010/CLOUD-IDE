@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import { ProjectContext } from '../context/ProjectContext';
+import {useSearchParams} from 'react-router-dom'
 
 function Dashboard({ }) {
   const navigate = useNavigate();
@@ -12,8 +13,44 @@ function Dashboard({ }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState(false);
+  const [searchParams] = useSearchParams();
 
-  const handleProjectClick = (project) => {
+  const handleProjectClick = async(project) => {
+    
+    const token= localStorage.getItem('authToken')
+    console.log(token)
+              
+
+        // Step 3: Decode the payload (second part of JWT) using base64
+    const payloadBase64 = token.split('.')[1]; // The second part of the token
+    const user = JSON.parse(atob(payloadBase64));
+    
+
+    
+
+    
+    
+    try {
+      const response = await fetch(`http://localhost:3000/files/fetchfroms3`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+          userID:user._id,
+          projID:project._id
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete project');
+      }
+    }
+    catch(e){
+      console.log(e)
+    }
+
+
   
     navigate(`/project/?projID=${project._id}`);
   };
@@ -30,7 +67,7 @@ function Dashboard({ }) {
         headers: {
           'Content-Type': 'application/json',
           'auth-token': auth_token
-        },
+        }
       });
 
       if (!response.ok) {

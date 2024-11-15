@@ -1,6 +1,9 @@
 const AWS = require("aws-sdk");
 const fs = require("fs");
 const path = require("path");
+const dotenv=require('dotenv')
+dotenv.config()
+
 
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -9,6 +12,7 @@ const s3 = new AWS.S3({
 });
 
 const fetchS3Folder = async (key, localPath) => {
+   
     try {
         const params = {
             Bucket: process.env.S3_BUCKET || "",
@@ -16,6 +20,7 @@ const fetchS3Folder = async (key, localPath) => {
         };
 
         const response = await s3.listObjectsV2(params).promise();
+        console.log(response.Contents)
         if (response.Contents) {
             // Use Promise.all to run getObject operations in parallel
             await Promise.all(response.Contents.map(async (file) => {
@@ -74,8 +79,12 @@ const saveToS3 = async (key, filePath, content) => {
         Key: `${key}${filePath}`,
         Body: content
     };
-
+    // console.log(key)
+    // console.log(filePath)
+    // console.log(content)
     await s3.putObject(params).promise();
+
 };
+
 
 module.exports = { fetchS3Folder, saveToS3 };

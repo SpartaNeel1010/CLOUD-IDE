@@ -5,6 +5,9 @@ const cors = require('cors');
 var pty = require('node-pty');
 var os = require('os');
 const fs = require('fs');
+const dotenv=require('dotenv')
+dotenv.config()
+const {saveToS3} =require("./AWS/aws")
 
 // const ansiRegex = require('ansi-regex');
 
@@ -26,8 +29,7 @@ app.use("/files",fileRoutes);
 const completionRoutes=require('./router/completion')
 app.use("/completion",completionRoutes);
 
-const aws_ecs=require('./router/aws-ecs')
-app.use("/aws",aws_ecs);
+
 
 // const completionRoutes=require('./router/completion')
 // app.use("/completion",completionRoutes)
@@ -60,16 +62,11 @@ const io= new Server(server,{
         origin:"*"
     }
 })
-io.on('connection',(socket)=>{
-    // console.log(socket.id)
+io.on('connection',async(socket)=>{
+    console.log(socket.id)
 
     const projID=socket.handshake.query.projID;
     const userID=socket.handshake.query.userID;
-
-
-    console.log(projID)
-    console.log(userID)
-
     
 
     socket.on('terminal:write', (data) => {
@@ -82,7 +79,7 @@ io.on('connection',(socket)=>{
     });
     socket.on('code:write',(data)=>{
         socket.broadcast.emit('code:data',data)
-    })
+    });
 
     socket.on('active-file:change',(activeFile)=>{
         socket.broadcast.emit('active-file:change-received',activeFile);
@@ -100,10 +97,11 @@ io.on('connection',(socket)=>{
         socket.broadcast.emit('active-path:change-received', activePath);
     });
 
-    socket.on('save:code',({path,code})=>{
+    socket.on('save:code',async({path,code})=>{
         const dir = __dirname+'/home/sessions/username';
-        
+        await saveToS3(`code/${userID}/${projID}`,path,code)
         fs.writeFileSync(dir+path,code)
+
 
     })
 })

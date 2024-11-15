@@ -26,10 +26,10 @@ function CloudIDE() {
 
 
     // State variables for file management
-    const [openFiles, setOpenFiles] = useState(['one.js']);
-    const [activeFile, setActiveFile] = useState('one.js');
-    const [activePath, setActivePath] = useState('/one.js');
-    const [openPaths, setOpenPaths] = useState(['/one.js']);
+    const [openFiles, setOpenFiles] = useState(['index.js']);
+    const [activeFile, setActiveFile] = useState('index.js');
+    const [activePath, setActivePath] = useState('/index.js');
+    const [openPaths, setOpenPaths] = useState(['/index.js']);
     const [fileTree, setFileTree] = useState({});
 
     // Fetch file tree on mount

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path=require('path')
 const router= express.Router()
 const { exec } = require('child_process');
-
+const {fetchS3Folder, saveToS3} =require('../AWS/aws')
 // console.log(__dirname)
 
 const dir =  __dirname.replace("/router","") + '/home/sessions/username';
@@ -130,5 +130,14 @@ router.post('/runcode', (req, res) => {
         res.json({ output: stdout });
     });
 });
+
+router.post("/fetchfroms3",async(req,res)=>{
+    
+    // req.body.projID
+    console.log(req.body.userID)
+    console.log(req.body.projID)
+    await fetchS3Folder(`code/${req.body.userID}/${req.body.projID}/`,`./home/sessions/username/`)
+    res.status(200).send("Fetched")
+})
 
 module.exports = router;
