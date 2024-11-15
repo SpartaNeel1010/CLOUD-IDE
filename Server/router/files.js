@@ -136,7 +136,7 @@ router.post("/fetchfroms3",async(req,res)=>{
     // req.body.projID
     console.log(req.body.userID)
     console.log(req.body.projID)
-    await fetchS3Folder(`code/${req.body.userID}/${req.body.projID}/`,`./home/sessions/username/`)
+    await fetchS3Folder(`code/${req.body.userID}/${req.body.projID}/`,`./home/sessions/username`)
     res.status(200).send("Fetched")
 })
 
