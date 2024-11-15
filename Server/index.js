@@ -61,7 +61,17 @@ const io= new Server(server,{
     }
 })
 io.on('connection',(socket)=>{
-    console.log(socket.id)
+    // console.log(socket.id)
+
+    const projID=socket.handshake.query.projID;
+    const userID=socket.handshake.query.userID;
+
+
+    console.log(projID)
+    console.log(userID)
+
+    
+
     socket.on('terminal:write', (data) => {
         // console.log(data)
         if (!data.includes("cd ..")) { 

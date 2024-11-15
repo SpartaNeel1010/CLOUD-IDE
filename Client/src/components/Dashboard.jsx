@@ -6,7 +6,7 @@ import { ProjectContext } from '../context/ProjectContext';
 function Dashboard({ }) {
   const navigate = useNavigate();
 
-  const { projects, setActiveProject, getAllprojects } = useContext(ProjectContext)
+  const { projects,getAllprojects } = useContext(ProjectContext)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [replName, setReplName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -14,8 +14,8 @@ function Dashboard({ }) {
   const [error, setError] = useState(false);
 
   const handleProjectClick = (project) => {
-    setActiveProject(project.title)
-    navigate(`/project`);
+  
+    navigate(`/project/?projID=${project._id}`);
   };
   const handleDelete = async (project) => {
    // Prevent triggering the list item click

@@ -6,7 +6,7 @@ export const ProjectContext = createContext();
 
 export const ProjectProvider = ({ children }) => {
   const [projects, setprojects] = useState([])
-  const [ActiveProject, setActiveProject] = useState(null);
+  
 
   const getAllprojects= async(props)=>{
         const auth_token=localStorage.getItem('authToken')
@@ -36,7 +36,7 @@ export const ProjectProvider = ({ children }) => {
 
 
   return (
-    <ProjectContext.Provider value={{projects,ActiveProject,setActiveProject,getAllprojects }}>
+    <ProjectContext.Provider value={{projects,getAllprojects }}>
       {children}
     </ProjectContext.Provider>
   );

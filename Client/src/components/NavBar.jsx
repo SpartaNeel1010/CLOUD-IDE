@@ -3,6 +3,7 @@ import { useNavigate ,useParams,useLocation} from 'react-router-dom';
 import './Navbar.css';
 import { AuthContext } from '../context/AuthContext';
 import { ProjectContext } from '../context/ProjectContext';
+import {useSearchParams} from 'react-router-dom'
 const Navbar = ({selectedProjectName }) => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -13,7 +14,9 @@ const Navbar = ({selectedProjectName }) => {
   const location=useLocation().pathname;
   
   const isProjectTab=location.includes("project");
-  const {ActiveProject }=useContext(ProjectContext)
+
+  const [searchParams] = useSearchParams();
+  const ActiveProject = searchParams.get('projID') ?? '';
 
 
   useEffect(() => {

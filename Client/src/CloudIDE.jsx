@@ -33,18 +33,19 @@ function CloudIDE() {
     const [fileTree, setFileTree] = useState({});
 
     // Fetch file tree on mount
+    const upadteFileTree = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/files/getallfiles");
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            setFileTree(data);
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    };
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch("http://localhost:3000/files/getallfiles");
-                if (!response.ok) throw new Error('Network response was not ok');
-                const data = await response.json();
-                setFileTree(data);
-            } catch (error) {
-                console.error('Fetch error:', error);
-            }
-        };
-        fetchData();
+        
+        upadteFileTree();
     }, []);
 
     // Handle resizing events
@@ -102,7 +103,7 @@ function CloudIDE() {
             <div className="upper" style={{ height: `${100 - terminalHeight}%` }}>
                 {/* FileTree and FileOps section */}
                 <div className="files" style={{ width: `${fileTreeWidth}%` }}>
-                    <FileOps setFileTree={setFileTree} />
+                    <FileOps setFileTree={setFileTree} upadteFileTree={upadteFileTree}/>
                     <div className="fileNames">
                         <FileTree 
                             tree={fileTree} 

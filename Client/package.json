@@ -17,6 +17,7 @@
     "@xterm/xterm": "^5.5.0",
     "axios": "^1.7.7",
     "client": "file:",
+    "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "monacopilot": "^0.14.0",
     "react": "^18.3.1",

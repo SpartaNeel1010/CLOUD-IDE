@@ -70,3 +70,53 @@
 .submit-btn:active {
     background-color: #000;
 }
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2d2d2d;
+    border: 1px solid #3c3c3c;
+    color: #cccccc;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #3c3c3c;
+    border-color: #4c4c4c;
+}
+
+.btn:active {
+    background-color: #444444;
+    border-color: #565656;
+}
+
+.addfile-btn, .addfolder-btn {
+    min-width: 28px;
+}
+
+.reload-btn {
+    min-width: 28px;
+    padding: 4px;
+}
+
+.reload-btn i {
+    font-size: 14px;
+}
+
+/* Add spinning animation for reload button when active */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.reload-btn:active i {
+    animation: spin 0.5s linear;
+}
