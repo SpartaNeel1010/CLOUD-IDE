@@ -188,10 +188,10 @@ function CloudIDE() {
                             activeFile={activeFile}
                             language="javascript"
                             theme="vs-dark"
-                        /> : <div class="no-files-message">
-                            <div class="no-files-icon">📄</div>
-                            <h2 class="no-files-title">No Files Opened</h2>
-                            <p class="no-files-subtitle">Open files will be displayed here</p>
+                        /> : <div className="no-files-message">
+                            <div className="no-files-icon">📄</div>
+                            <h2 className="no-files-title">No files open</h2>
+                            <p className="no-files-subtitle">Open files will be displayed here</p>
                         </div>}
 
                 </div>

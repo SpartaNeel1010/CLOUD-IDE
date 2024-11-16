@@ -17,7 +17,28 @@ const Navbar = ({ selectedProjectName }) => {
   const isProjectTab = location.includes("project");
 
   const [searchParams] = useSearchParams();
-  const ActiveProject = searchParams.get('projID') ?? '';
+  const projID = searchParams.get('projID') ?? '';
+
+  const [projectName, setprojectName] = useState('')
+  const fetchProject = async () => {
+    if(!projID)
+      return
+    try {
+      const response = await fetch(`http://localhost:5001/project/fetchprojectname/${projID}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setprojectName(data.title);
+    } 
+    catch (err) {
+      console.log(err)
+    } 
+  }
+  
+  fetchProject()
+  
+  
 
 
   useEffect(() => {
@@ -71,7 +92,7 @@ const Navbar = ({ selectedProjectName }) => {
         {/* Project Label - Only shown if a project is selected */}
         {isProjectTab && (
           <div className="project-label">
-            <span className="project-name">{ActiveProject}</span>
+            <span className="project-name">{projectName}</span>
           </div>
         )}
       </div>
