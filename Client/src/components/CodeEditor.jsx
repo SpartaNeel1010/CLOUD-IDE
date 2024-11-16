@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import MonacoEditor from '@monaco-editor/react';
-import socket from './Socket.js';
+
 import ChatWidget from './ChatWindow';
 
-const CodeEditor = ({ activePath, setActivePath, activeFile, setActiveFile, language = "javascript", theme = "vs-dark" }) => {
+const CodeEditor = ({ socket,activePath, setActivePath, activeFile, setActiveFile, language = "javascript", theme = "vs-dark" }) => {
 
   const [code, setCode] = useState('');
 

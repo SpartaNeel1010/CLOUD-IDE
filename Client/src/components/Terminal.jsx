@@ -1,8 +1,8 @@
 import React,{useRef,useState,useEffect} from 'react'
 import { Terminal  as XTerminal} from "xterm";
 import "xterm/css/xterm.css";
-import socket from './Socket.js'
-function Terminal() {
+
+function Terminal({socket}) {
 
     const xtermRef=useRef(null)
     const xterm=useRef()

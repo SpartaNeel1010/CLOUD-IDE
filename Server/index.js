@@ -68,6 +68,9 @@ io.on('connection',async(socket)=>{
     const projID=socket.handshake.query.projID;
     const userID=socket.handshake.query.userID;
     
+    // console.log(userID)
+    // console.log(projID)
+    
 
     socket.on('terminal:write', (data) => {
         // console.log(data)

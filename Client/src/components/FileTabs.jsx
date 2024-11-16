@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import socket from './Socket'
-function FileTabs({ openFiles,setOpenFiles,openPaths,setOpenPaths,activePath, setActivePath, activeFile, setActiveFile }) {
+
+function FileTabs({ socket,openFiles,setOpenFiles,openPaths,setOpenPaths,activePath, setActivePath, activeFile, setActiveFile }) {
     // Function to handle the close button click
     const [isProcessingServerUpdate, setIsProcessingServerUpdate] = useState(false);
     const [isProcessingServerUpdatePaths, setIsProcessingServerUpdatePaths] = useState(false);

@@ -7,14 +7,16 @@ import FileTabs from './components/FileTabs';
 import './CloudIDE.css';
 import CodeRunner from './components/CodeRunner';
 import "@assistant-ui/react/styles/index.css";
-import "@assistant-ui/react/styles/modal.css"; 
+import "@assistant-ui/react/styles/modal.css";
+import { Socket, io } from 'socket.io-client';
+import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
 
 
 function CloudIDE() {
-     // State variables for dimensions
+    // State variables for dimensions
     const [fileTreeWidth, setFileTreeWidth] = useState(20); // Left sidebar (FileTree) width percentage
-    const [editorWidth, setEditorWidth] = useState(60);  
+    const [editorWidth, setEditorWidth] = useState(60);
     const [codeRunnerWidth, setCodeRunnerWidth] = useState(20); // Width percentage of CodeRunner
     const [terminalHeight, setTerminalHeight] = useState(30); // Bottom section (Terminal) height percentage
 
@@ -26,11 +28,47 @@ function CloudIDE() {
 
 
     // State variables for file management
-    const [openFiles, setOpenFiles] = useState(['index.js']);
-    const [activeFile, setActiveFile] = useState('index.js');
-    const [activePath, setActivePath] = useState('/index.js');
-    const [openPaths, setOpenPaths] = useState(['/index.js']);
+    const [openFiles, setOpenFiles] = useState([]);
+    const [activeFile, setActiveFile] = useState();
+    const [activePath, setActivePath] = useState();
+    const [openPaths, setOpenPaths] = useState([]);
     const [fileTree, setFileTree] = useState({});
+
+
+    // Socket Creation
+    const location = useLocation()
+
+
+    const [searchParams] = useSearchParams();
+    const projID = searchParams.get('projID') ?? '';
+    const token = localStorage.getItem('authToken')
+    const payloadBase64 = token.split('.')[1];
+    const user = JSON.parse(atob(payloadBase64));
+    const [socket, setSocket] = useState(io(`http://localhost:3000/?projID=${projID}&userID=${user._id}`));
+
+    useEffect(() => {
+        const projID = searchParams.get('projID') ?? '';
+        const token = localStorage.getItem('authToken')
+        const payloadBase64 = token.split('.')[1];
+        const user = JSON.parse(atob(payloadBase64));
+        if (!projID)
+            return
+
+        const newSocket = io(`http://localhost:3000/?projID=${projID}&userID=${user._id}`);
+        setSocket(newSocket);
+
+        return () => {
+            newSocket.disconnect();
+        };
+    }, [location.pathname]);
+
+
+
+
+    // const socket=useSocket(projID,user._id)
+    // 
+
+
 
     // Fetch file tree on mount
     const upadteFileTree = async () => {
@@ -43,8 +81,10 @@ function CloudIDE() {
             console.error('Fetch error:', error);
         }
     };
+
     useEffect(() => {
-        
+
+
         upadteFileTree();
     }, []);
 
@@ -52,7 +92,7 @@ function CloudIDE() {
     const handleMouseDownFileTree = () => setIsResizingFileTree(true);
     const handleMouseDownEditor = () => setIsResizingEditor(true);
     const handleMouseDownTerminal = () => setIsResizingTerminal(true);
-    
+
 
     const handleMouseMove = (e) => {
         if (isResizingFileTree) {
@@ -96,25 +136,25 @@ function CloudIDE() {
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [isResizingFileTree, isResizingEditor, isResizingTerminal,isResizingCodeRunner]);
+    }, [isResizingFileTree, isResizingEditor, isResizingTerminal, isResizingCodeRunner]);
 
     return (
         <div className="playground">
             <div className="upper" style={{ height: `${100 - terminalHeight}%` }}>
                 {/* FileTree and FileOps section */}
                 <div className="files" style={{ width: `${fileTreeWidth}%` }}>
-                    <FileOps setFileTree={setFileTree} upadteFileTree={upadteFileTree}/>
+                    <FileOps setFileTree={setFileTree} upadteFileTree={upadteFileTree} />
                     <div className="fileNames">
-                        <FileTree 
-                            tree={fileTree} 
-                            path="" 
-                            activePath={activePath} 
-                            setActivePath={setActivePath} 
-                            openFiles={openFiles} 
-                            setOpenFiles={setOpenFiles} 
-                            activeFile={activeFile} 
-                            setActiveFile={setActiveFile} 
-                            setOpenPaths={setOpenPaths} 
+                        <FileTree
+                            tree={fileTree}
+                            path=""
+                            activePath={activePath}
+                            setActivePath={setActivePath}
+                            openFiles={openFiles}
+                            setOpenFiles={setOpenFiles}
+                            activeFile={activeFile}
+                            setActiveFile={setActiveFile}
+                            setOpenPaths={setOpenPaths}
                             openPath={openPaths}
                         />
                     </div>
@@ -122,10 +162,11 @@ function CloudIDE() {
 
                 {/* Divider for resizing FileTree */}
                 <div className="divider-vertical" onMouseDown={handleMouseDownFileTree}></div>
-                
+
                 {/* Code Editor and Tabs section */}
-                <div className="editor-container" style={{ width: `${editorWidth}%` }}>
+                <div className={activeFile?`editor-container`:"no-files-opened"} style={{ width: `${editorWidth}%` }}>
                     <FileTabs
+                        socket={socket}
                         openFiles={openFiles}
                         setOpenFiles={setOpenFiles}
                         activeFile={activeFile}
@@ -138,33 +179,40 @@ function CloudIDE() {
                     <p style={{ padding: "1px", fontSize: "14px", marginTop: "1px", color: "green" }}>
                         {activePath && activePath.replaceAll("/", " > ")}
                     </p>
-                    <CodeEditor
-                        activePath={activePath}
-                        setActivePath={setActivePath}
-                        setActiveFile={setActiveFile}
-                        activeFile={activeFile}
-                        language="javascript"
-                        theme="vs-dark"
-                    />
+                    {activeFile ?
+                        <CodeEditor
+                            socket={socket}
+                            activePath={activePath}
+                            setActivePath={setActivePath}
+                            setActiveFile={setActiveFile}
+                            activeFile={activeFile}
+                            language="javascript"
+                            theme="vs-dark"
+                        /> : <div class="no-files-message">
+                            <div class="no-files-icon">📄</div>
+                            <h2 class="no-files-title">No files open</h2>
+                            <p class="no-files-subtitle">Open files will be displayed here</p>
+                        </div>}
+
                 </div>
 
-                
+
                 <div className="divider-vertical" onMouseDown={handleMouseDownEditor}></div>
 
-                
+
                 <div className="code-runner-div" style={{ width: "25%" }}>
                     <CodeRunner activePath={activePath} />
                 </div>
             </div>
 
-            
+
             <div className="divider-horizontal" onMouseDown={handleMouseDownTerminal}></div>
 
-            
+
             <div className="terminal" style={{ height: `${terminalHeight}%` }}>
-                <Terminal />
+                <Terminal socket={socket} />
             </div>
-            
+
 
         </div>
     );

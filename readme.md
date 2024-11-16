@@ -1,5 +1,5 @@
 
-# Collaborative Cloud IDE - README
+# Collaborative Cloud IDE
 
 Welcome to the **Collaborative Cloud IDE**! This project is an online integrated development environment (IDE) designed for seamless coding, real-time collaboration, and persistent development environments. Leveraging cutting-edge technologies such as Docker, Kubernetes, and AWS, the Cloud IDE empowers developers to collaborate effectively from anywhere.
 
