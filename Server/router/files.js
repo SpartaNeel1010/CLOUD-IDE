@@ -140,4 +140,34 @@ router.post("/fetchfroms3",async(req,res)=>{
     res.status(200).send("Fetched")
 })
 
+
+
+ function deleteFolderContents(folderPath) {
+    const files = fs.readdirSync(folderPath);
+    for (const file of files) {
+        const filePath = path.join(folderPath, file);
+        const stat = fs.statSync(filePath);
+
+        if (stat.isDirectory()) {
+            // Recursively delete subdirectories
+            deleteFolderContents(filePath);
+            fs.rmdirSync(filePath); // Remove empty directory
+        } else {
+            fs.unlinkSync(filePath); // Remove file
+        }
+    }
+}
+router.delete("/deleteallthing",async(req,res)=>{
+    const folderPath=dir
+    console.log(folderPath)
+    // res.send(`All contents of ${folderPath} have been deleted.`);
+    try {
+        deleteFolderContents(folderPath);
+        res.send(`All contents of ${folderPath} have been deleted.`);
+    } catch (error) {
+        res.status(500).send(`Error deleting contents: ${error.message}`);
+    }
+
+})
+
 module.exports = router;

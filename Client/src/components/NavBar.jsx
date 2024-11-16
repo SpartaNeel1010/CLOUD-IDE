@@ -1,20 +1,20 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { useNavigate ,useParams,useLocation} from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import { AuthContext } from '../context/AuthContext';
 import { ProjectContext } from '../context/ProjectContext';
-import {useSearchParams} from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
-const Navbar = ({selectedProjectName }) => {
+const Navbar = ({ selectedProjectName }) => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  
-  const location=useLocation().pathname;
-  
-  const isProjectTab=location.includes("project");
+
+  const location = useLocation().pathname;
+
+  const isProjectTab = location.includes("project");
 
   const [searchParams] = useSearchParams();
   const ActiveProject = searchParams.get('projID') ?? '';
@@ -30,37 +30,30 @@ const Navbar = ({selectedProjectName }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+  const deleteAllThing = async()=>{
+    try {
+      const response = await fetch("http://localhost:3000/files/deleteallthing", {
+        method: 'DELETE', // HTTP method for deletion
+        headers: {
+          'Content-Type': 'application/json', // Specify content type
+        },
+      });
 
-  const handleHomeClick = async()=>{
-    // const token= localStorage.getItem('authToken')
-    // console.log(token)
-    // const projID=searchParams.get('projID')
-              
+      // Check if the response is successful (status code 2xx)
+      if (response.ok) {
+        const data = await response.text();
+        console.log(data); // Success message from server
+      } else {
+        const error = await response.text();
+        console.error(`Error: ${error}`); // Error message from server
+      }
+    } catch (error) {
+      console.error(`Network error: ${error.message}`);
+    }
 
-    //     // Step 3: Decode the payload (second part of JWT) using base64
-    // const payloadBase64 = token.split('.')[1]; // The second part of the token
-    // const user = JSON.parse(atob(payloadBase64));
-    
-    // try {
-    //   const response = await fetch(`http://localhost:3000/files/savetos3`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body:JSON.stringify({
-    //       userID:user._id,
-    //       projID:projID
-    //     })
-    //   });
-
-    //   if (!response.ok) {
-    //     throw new Error('Failed to delete project');
-    //   }
-    // }
-    // catch(e){
-    //   console.log(e)
-    // }
-
+  }
+  const handleHomeClick = async () => {
+    deleteAllThing()
 
     navigate("/")
 
@@ -123,6 +116,7 @@ const Navbar = ({selectedProjectName }) => {
               <div className="dropdown-divider" />
               <button
                 onClick={() => {
+                  deleteAllThing();
                   logout();
                   setIsOpen(false);
                   navigate("/login")
