@@ -190,7 +190,7 @@ function CloudIDE() {
                             theme="vs-dark"
                         /> : <div class="no-files-message">
                             <div class="no-files-icon">📄</div>
-                            <h2 class="no-files-title">No files open</h2>
+                            <h2 class="no-files-title">No Files Opened</h2>
                             <p class="no-files-subtitle">Open files will be displayed here</p>
                         </div>}
 
