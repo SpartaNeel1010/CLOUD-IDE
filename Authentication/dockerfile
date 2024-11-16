@@ -18,7 +18,6 @@ EXPOSE 5001
 
 # Define the environment variable for the MongoDB connection string
 # Assuming your MongoDB is running locally on the host machine at port 27017
-ENV MONGODB_URI=mongodb+srv://neel:t8feV0YnA40PBVFU@inotebook-cluster.kba4w.mongodb.net/iNoteBook
 
 # Command to start the Express app
 CMD ["npm", "start"]
