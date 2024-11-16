@@ -20,18 +20,20 @@ const fetchS3Folder = async (key, localPath) => {
         };
 
         const response = await s3.listObjectsV2(params).promise();
-        console.log(response.Contents)
+        // console.log(response.Contents.slice(1))
         if (response.Contents) {
             // Use Promise.all to run getObject operations in parallel
-            await Promise.all(response.Contents.map(async (file) => {
+            await Promise.all(response.Contents.slice(1).map(async (file) => {
                 const fileKey = file.Key;
                 if (fileKey) {
+                    // console.log(fileKey)
                     const getObjectParams = {
                         Bucket: process.env.S3_BUCKET || "",
                         Key: fileKey
                     };
 
                     const data = await s3.getObject(getObjectParams).promise();
+                    // console.log(data)
                     if (data.Body) {
                         const fileData = data.Body;
                         const filePath = `${localPath}/${fileKey.replace(key, "")}`;
