@@ -10,6 +10,7 @@
   "description": "",
   "dependencies": {
     "@kubernetes/client-node": "^0.22.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "kubernetes": "^1.0.0",
     "resource_provision": "file:",
