@@ -27,9 +27,9 @@ spec:
               echo "Resources copied from S3";
           env:
             - name: AWS_ACCESS_KEY_ID
-              value: "AKIAQSOI4HAIMJPINN2G"
+              value: ""
             - name: AWS_SECRET_ACCESS_KEY
-              value: "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"
+              value: ""
           volumeMounts:
             - name: workspace-volume
               mountPath: /workspace
