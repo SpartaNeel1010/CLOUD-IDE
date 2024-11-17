@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ChatWindow.css';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 
 const formatMessage = (content) => {
@@ -66,6 +67,9 @@ const ChatWidget = ({code}) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+  
+  const [searchparams]=useSearchParams()
+  const projID=searchparams.get("projID")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,7 +80,7 @@ const ChatWidget = ({code}) => {
       setMessages(prev => [...prev, { role: 'user', content: inputMessage }]);
       
 
-      const response = await fetch('http://localhost:3000/completion', {
+      const response = await fetch(`http://${projID}.vedant-neel-aarav.site/completion`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

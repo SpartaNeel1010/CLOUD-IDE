@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './FileOps.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useSearchParams } from 'react-router-dom';
 
 function FileOperations({ setFileTree, upadteFileTree }) {
     const [showInput, setShowInput] = useState(false);
@@ -21,9 +22,11 @@ function FileOperations({ setFileTree, upadteFileTree }) {
             handleSubmit();
         }
     };
+    const [searchparams]=useSearchParams()
+    const projID=searchparams.get("projID")
     const fetchData = async () => {
         try {
-            let response = await fetch("http://localhost:3000/files/getallfiles");
+            let response = await fetch(`http://${projID}.vedant-neel-aarav.site/files/getallfiles`);
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -42,7 +45,7 @@ function FileOperations({ setFileTree, upadteFileTree }) {
         if (inputValue.trim()) {
             // Send request to backend based on the type
             const endpoint = inputType === 'file' ? '/create-file' : '/create-folder';
-            fetch("http://localhost:3000/files" + endpoint, {
+            fetch(`http://${projID}.vedant-neel-aarav.site/files` + endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: inputValue })

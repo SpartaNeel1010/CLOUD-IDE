@@ -2,17 +2,21 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import MonacoEditor from '@monaco-editor/react';
 
 import ChatWidget from './ChatWindow';
+import { useSearchParams } from 'react-router-dom';
 
 const CodeEditor = ({ socket,activePath, setActivePath, activeFile, setActiveFile, language = "javascript", theme = "vs-dark" }) => {
 
   const [code, setCode] = useState('');
 
-  // Whenever active path changes it updates the code by fetching it from backend server endpoint 'http://localhost:3000/files/getdata'
+  const [searchparams]=useSearchParams()
+  const projID=searchparams.get("projID")
+
+  // Whenever active path changes it updates the code by fetching it from backend server endpoint 
   useEffect(() => {
 
     const fetchData = async () => {
       try {
-        let response = await fetch("http://localhost:3000/files/getdata", {
+        let response = await fetch(`http://${projID}.vedant-neel-aarav.site/files/getdata`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

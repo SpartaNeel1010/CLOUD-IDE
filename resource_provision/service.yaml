@@ -14,6 +14,8 @@ spec:
       labels:
         app: service_name
     spec:
+      imagePullSecrets:
+        - name: docker-hub-credentials
       volumes:
         - name: workspace-volume
           emptyDir: {}
@@ -23,25 +25,25 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - >
-              aws s3 cp s3://cloud-ide-project/code/userId/service_name/ /workspace/ --recursive &&
+              aws s3 cp s3://cloud-ide-project/code/userId/service_name/ /app/home/sessions/username/ --recursive &&
               echo "Resources copied from S3";
           env:
             - name: AWS_ACCESS_KEY_ID
-              value: ""
+              value: awsID
             - name: AWS_SECRET_ACCESS_KEY
-              value: ""
+              value: awskey
           volumeMounts:
             - name: workspace-volume
-              mountPath: /workspace
+              mountPath: /app/home/sessions/username
       containers:
-        - name: runner
-          image: 100xdevs/runner:latest
+        - name: coding-env
+          image: shahneel1010/coding-environment-image
           ports:
-            - containerPort: 3001
+            # - containerPort: 3001
             - containerPort: 3000
           volumeMounts:
             - name: workspace-volume
-              mountPath: /workspace
+              mountPath: /app/home/sessions/username
           resources:
             # Bounty $25 Use ephemeral-storage to add space limits here
             requests:
@@ -60,10 +62,10 @@ spec:
   selector:
     app: service_name
   ports:
-    - protocol: TCP
-      name: ws
-      port: 3001
-      targetPort: 3001
+    # - protocol: TCP
+    #   name: ws
+    #   port: 3001
+    #   targetPort: 3001
     - protocol: TCP
       name: user
       port: 3000
@@ -76,16 +78,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: service_name.vedant-neel-aarav.site
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: service_name
-            port:
-              number: 3001
+  # - host: service_name.vedant-neel-aarav.site
+  #   http:
+  #     paths:
+  #     - path: /
+  #       pathType: Prefix
+  #       backend:
+  #         service:
+  #           name: service_name
+  #           port:
+  #             number: 3001
   - host: service_name.vedant-neel-aarav.site
     http:
       paths:

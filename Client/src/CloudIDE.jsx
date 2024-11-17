@@ -44,7 +44,7 @@ function CloudIDE() {
     const token = localStorage.getItem('authToken')
     const payloadBase64 = token.split('.')[1];
     const user = JSON.parse(atob(payloadBase64));
-    const [socket, setSocket] = useState(io(`http://localhost:3000/?projID=${projID}&userID=${user._id}`));
+    const [socket, setSocket] = useState(io(`http://${projID}.vedant-neel-aarav.site/?projID=${projID}&userID=${user._id}`));
 
     useEffect(() => {
         const projID = searchParams.get('projID') ?? '';
@@ -54,7 +54,7 @@ function CloudIDE() {
         if (!projID)
             return
 
-        const newSocket = io(`http://localhost:3000/?projID=${projID}&userID=${user._id}`);
+        const newSocket = io(`http://${projID}.vedant-neel-aarav.site/?projID=${projID}&userID=${user._id}`);
         setSocket(newSocket);
 
         return () => {
@@ -73,7 +73,7 @@ function CloudIDE() {
     // Fetch file tree on mount
     const upadteFileTree = async () => {
         try {
-            const response = await fetch("http://localhost:3000/files/getallfiles");
+            const response = await fetch(`http://${projID}.vedant-neel-aarav.site/files/getallfiles`);
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
             setFileTree(data);

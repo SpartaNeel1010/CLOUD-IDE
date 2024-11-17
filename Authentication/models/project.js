@@ -6,10 +6,15 @@ const ProjectSchema=mongoose.Schema({
         required:true,
         unique:false
     },
+    url:{
+        type: String,
+        required:true,
+        unique:false
+    },
     title:{
         type: String,
         required: true, 
-        unique:true
+        unique:false
     },
     date:{
         type:Date,

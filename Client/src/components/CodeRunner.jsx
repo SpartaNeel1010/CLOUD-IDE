@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './CodeRunner.css';
+import { useSearchParams } from 'react-router-dom';
 
 const CodeRunner = ({ activePath }) => {
     const [output, setOutput] = useState('');
     const [loading, setLoading] = useState(false);
+    // useSearchParams()
+    const [searchparams]=useSearchParams()
+    const projID=searchparams.get("projID")
 
     const handleRun = async () => {
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:3000/files/runcode', {
+            const response = await fetch(`http://${projID}.vedant-neel-aarav.site/files/runcode`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

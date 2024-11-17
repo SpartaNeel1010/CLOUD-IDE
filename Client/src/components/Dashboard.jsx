@@ -33,14 +33,14 @@ function Dashboard({ }) {
 
     setisProjectLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/files/fetchfroms3`, {
+      const response = await fetch(`http://localhost:3002/start`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           userID: user._id,
-          projID: project._id
+          projID: project.url
         })
       });
 
@@ -51,10 +51,11 @@ function Dashboard({ }) {
     catch (e) {
       console.log(e)
     }
+    
 
 
     setisProjectLoading(false);
-    navigate(`/project/?projID=${project._id}`);
+    navigate(`/project/?projID=${project.url}`);
   };
   const handleDelete = async (project) => {
     // Prevent triggering the list item click
@@ -75,17 +76,15 @@ function Dashboard({ }) {
       if (!response.ok) {
         throw new Error('Failed to delete project');
       }
-
-
+      
       getAllprojects()
-
-
-
 
     } catch (err) {
       console.error('Error deleting project:', err);
       setError(true);
-      setIsDeleting(false);
+    }
+    finally{
+      setIsDeleting(false)
     }
   };
 
@@ -199,7 +198,7 @@ function Dashboard({ }) {
           <ul className="project-list">
             {projects.map((project, index) => (
               <li
-                key={project._id}
+                key={project.url}
                 className={`project-list-item ${index % 2 === 0 ? 'stripe-dark' : ''
                   } ${isDeleting ? 'deleting' : ''} ${error ? 'error' : ''}`}
                 onClick={() => handleProjectClick(project)}

@@ -4,6 +4,7 @@ const Project=require("../models/project")
 const { check, validationResult } = require('express-validator');
 const fetchuser=require('../middleware/fetchuser.js')
 const copyS3Folder=require("./aws.js")
+const mongoose = require('mongoose');
 
 
 // fetch all the notes belonging to the logged in user 
@@ -11,12 +12,12 @@ router.get("/fetchallprojects",fetchuser,async (req,res)=>{
     const projects=await Project.find({userID:req.body._id})
     res.json(projects)
 })
-router.get("/fetchprojectname/:projID",async (req,res)=>{
-    const projID = req.params.projID; // Access projID from the route parameter
-    console.log("-----",projID)
+router.get("/fetchprojectname/:projUrl",async (req,res)=>{
+    const projUrl = req.params.projUrl; // Access projID from the route parameter
+    console.log("-----",projUrl)
     console.log("first")
 
-    const project = await Project.findById(projID); // findById is more concise for fetching by _id
+    const project = await Project.findOne({url:projUrl}); // findById is more concise for fetching by _id
     if (!project) {
         return res.status(404).json({ error: "Project not found" });
     }
@@ -33,7 +34,9 @@ router.post("/createproject",fetchuser,[
         return res.status(400).json({ errors: errors.array() });
     }
     let {title}=req.body
+    const customId = `x${new mongoose.Types.ObjectId().toHexString()}`;
     let project=new Project({
+        url: customId,
         title,
         userID:req.body._id,
         date:new Date()
@@ -46,7 +49,7 @@ router.post("/createproject",fetchuser,[
         console.log(req.body._id)
         console.log(project.title)
         console.log(process.env.S3_BUCKET)
-        await copyS3Folder("base-code/java-script/",`code/${req.body._id}/${project._id}/`)
+        await copyS3Folder("base-code/java-script/",`code/${req.body._id}/${project.url}/`)
 
         res.send(projectsaved)
         

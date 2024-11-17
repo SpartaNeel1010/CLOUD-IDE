@@ -51,13 +51,42 @@ const Navbar = ({ selectedProjectName }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-  const deleteAllThing = async()=>{
+
+  
+  // const deleteAllThing = async()=>{
+  //   try {
+  //     const response = await fetch(`http://${projID}.vedant-neel-aarav.site/files/deleteallthing`, {
+  //       method: 'DELETE', // HTTP method for deletion
+  //       headers: {
+  //         'Content-Type': 'application/json', // Specify content type
+  //       },
+  //     });
+
+  //     // Check if the response is successful (status code 2xx)
+  //     if (response.ok) {
+  //       const data = await response.text();
+  //       console.log(data); // Success message from server
+  //     } else {
+  //       const error = await response.text();
+  //       console.error(`Error: ${error}`); // Error message from server
+  //     }
+  //   } catch (error) {
+  //     console.error(`Network error: ${error.message}`);
+  //   }
+
+  // }
+  const deleteResources = async()=>{
     try {
-      const response = await fetch("http://localhost:3000/files/deleteallthing", {
-        method: 'DELETE', // HTTP method for deletion
+      const response = await fetch(`http://localhost:3002/disconnect`, {
+        method: 'POST', // HTTP method for deletion
         headers: {
           'Content-Type': 'application/json', // Specify content type
         },
+        body: JSON.stringify({
+          userID: user._id,
+          projID: projID
+        })
+
       });
 
       // Check if the response is successful (status code 2xx)
@@ -74,8 +103,8 @@ const Navbar = ({ selectedProjectName }) => {
 
   }
   const handleHomeClick = async () => {
-    deleteAllThing()
-
+    // deleteAllThing()
+    deleteResources();
     navigate("/")
 
   }
@@ -137,7 +166,7 @@ const Navbar = ({ selectedProjectName }) => {
               <div className="dropdown-divider" />
               <button
                 onClick={() => {
-                  deleteAllThing();
+                  deleteResources();
                   logout();
                   setIsOpen(false);
                   navigate("/login")
