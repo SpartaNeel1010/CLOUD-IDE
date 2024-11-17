@@ -7,5 +7,10 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.22.2",
+    "kubernetes": "^1.0.0",
+    "yaml": "^2.6.0"
+  }
 }
