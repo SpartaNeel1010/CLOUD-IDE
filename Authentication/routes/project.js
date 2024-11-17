@@ -40,6 +40,7 @@ router.post("/createproject",fetchuser,[
     })
     // console.log(req.body._id)
     // console.log(project)
+    // project._id=`x${project._id}`
     try {
         let projectsaved=await project.save()
         console.log(req.body._id)
