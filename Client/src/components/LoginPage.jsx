@@ -50,7 +50,7 @@ const AuthForms = () => {
   const Login = async () => {
     try {
       console.log(loginData)
-      const endpoint = "http://localhost:5001/user/login";
+      const endpoint = "https://auth-image-640388342610.us-central1.run.app/user/login";
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -93,7 +93,7 @@ const AuthForms = () => {
   const CreateUser = async () => {
     console.log(SignupData)
     try {
-      const endpoint = "http://localhost:5001/user/createuser";
+      const endpoint = "https://auth-image-640388342610.us-central1.run.app/user/createuser";
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {

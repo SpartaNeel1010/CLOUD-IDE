@@ -13,7 +13,7 @@ export const ProjectProvider = ({ children }) => {
         console.log("fetching all notes")
         if(!auth_token)
             return
-        let response =await fetch('http://localhost:5001/project/fetchallprojects',{
+        let response =await fetch('https://auth-image-640388342610.us-central1.run.app/project/fetchallprojects',{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

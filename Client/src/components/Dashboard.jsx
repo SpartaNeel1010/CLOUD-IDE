@@ -65,7 +65,7 @@ function Dashboard({ }) {
     console.log(project)
     // return;
     try {
-      const response = await fetch(`http://localhost:5001/project/deleteproject/${project._id}`, {
+      const response = await fetch(`https://auth-image-640388342610.us-central1.run.app/project/deleteproject/${project._id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ function Dashboard({ }) {
       return
 
     try {
-      const response = await fetch('http://localhost:5001/project/createproject', {
+      const response = await fetch('https://auth-image-640388342610.us-central1.run.app/project/createproject', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
