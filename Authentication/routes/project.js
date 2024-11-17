@@ -11,7 +11,17 @@ router.get("/fetchallprojects",fetchuser,async (req,res)=>{
     const projects=await Project.find({userID:req.body._id})
     res.json(projects)
 })
+router.get("/fetchprojectname/:projID",async (req,res)=>{
+    const projID = req.params.projID; // Access projID from the route parameter
+    console.log("-----",projID)
+    console.log("first")
 
+    const project = await Project.findById(projID); // findById is more concise for fetching by _id
+    if (!project) {
+        return res.status(404).json({ error: "Project not found" });
+    }
+    res.json(project);
+})
 // Save a note created by the user  
 router.post("/createproject",fetchuser,[
     check('title').isLength({min:0}).withMessage("Name cannot be empty"),
