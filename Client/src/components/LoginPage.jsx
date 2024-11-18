@@ -4,7 +4,7 @@ import { FaGoogle, FaGithub } from 'react-icons/fa';
 import './LoginPage.css';
 import { AuthContext } from '../context/AuthContext';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 
 
@@ -44,7 +44,7 @@ const AuthForms = () => {
     })
   }
 
-
+  const [searchParams]=useSearchParams()
 
 
   const Login = async () => {
@@ -75,7 +75,8 @@ const AuthForms = () => {
         login(data);
         console.log("logged in success")
         console.log("navigating")
-        navigate("/")
+        const redirectTo = searchParams.get("redirect") || "/";
+        navigate(redirectTo)
       }
       
 
