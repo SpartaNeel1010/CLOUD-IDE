@@ -37,3 +37,4 @@ coverage/
 # Ignore system files
 .DS_Store
 Thumbs.db
+resource_provision/credentials.json

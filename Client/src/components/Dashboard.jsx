@@ -33,7 +33,7 @@ function Dashboard({ }) {
 
     setisProjectLoading(true);
     try {
-      const response = await fetch(`http://localhost:3002/start`, {
+      const response = await fetch(`https://resproven-service-640388342610.us-central1.run.app/start`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -1,0 +1,49 @@
+
+
+FROM ubuntu:20.04
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    build-essential \
+    make \
+    g++ \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean
+
+RUN node -v && npm -v
+# Step 2: Set the working directory in the container
+WORKDIR /app
+
+# Step 3: Copy package.json and package-lock.json to the container
+COPY package*.json ./
+
+# Step 4: Install the app dependencies
+RUN npm install
+
+# Step 5: Copy the rest of your application code
+COPY . .
+
+RUN apt-get update
+RUN apt-get install apt-transport-https ca-certificates gnupg curl
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg |  gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN apt-get update && apt-get install google-cloud-cli -y 
+# gcloud init
+RUN gcloud auth login --cred-file=credentials.json
+RUN gcloud config set project theta-cell-441604-b5 -q
+
+RUN apt-get install kubectl
+RUN apt-get install google-cloud-cli-gke-gcloud-auth-plugin
+RUN gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1 --project theta-cell-441604-b5
+# Step 6: Expose the port your app will run on (default is 3000)
+EXPOSE 3002
+
+CMD [ "node", "index.js" ]
+
+# Step 7: Define the command to run your app
+# CMD ["node", "src/index.js"]

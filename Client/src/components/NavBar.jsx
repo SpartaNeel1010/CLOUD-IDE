@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import './Navbar.css';
+import './NavBar.css';
 import { AuthContext } from '../context/AuthContext';
 import { ProjectContext } from '../context/ProjectContext';
 import { useSearchParams } from 'react-router-dom'
@@ -77,7 +77,7 @@ const Navbar = ({ selectedProjectName }) => {
   // }
   const deleteResources = async()=>{
     try {
-      const response = await fetch(`http://localhost:3002/disconnect`, {
+      const response = await fetch(`https://resproven-service-640388342610.us-central1.run.app/disconnect`, {
         method: 'POST', // HTTP method for deletion
         headers: {
           'Content-Type': 'application/json', // Specify content type

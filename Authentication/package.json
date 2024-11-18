@@ -1,5 +1,5 @@
 {
-  "name": "Authentication",
+  "name": "authentication",
   "version": "1.0.0",
   "description": "inotebook-Your notebooks on cloud",
   "main": "index.js",
@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "Authentication": "file:",
+    "authentication": "file:",
     "aws-sdk": "^2.1692.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",

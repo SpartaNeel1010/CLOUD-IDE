@@ -111,7 +111,7 @@ app.post("/start", async (req, res) => {
     const namespace = "default"; // Assuming a default namespace, adjust as needed
 
     try {
-        const kubeManifests = readAndParseKubeYaml(path.join(__dirname, "../service.yaml"), projID,userID);
+        const kubeManifests = readAndParseKubeYaml(path.join(__dirname, "./service.yaml"), projID,userID);
         for (const manifest of kubeManifests) {
             switch (manifest.kind) {
                 case "Deployment":

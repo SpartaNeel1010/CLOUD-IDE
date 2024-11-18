@@ -4,7 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import LoginPage from './components/LoginPage';
-import Navbar from './components/Navbar';
+import Navbar from './components/NavBar';
 import CloudIDE from './CloudIDE';
 import Dashboard from './components/Dashboard';
 
