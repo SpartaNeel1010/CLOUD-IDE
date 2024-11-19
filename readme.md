@@ -6,8 +6,10 @@ Welcome to the **Collaborative Cloud IDE**! This project is an online integrated
 ## Features
 
 ### 1. **Isolated Coding Environments**
-- Each user gets a dedicated Docker container for an isolated, reproducible coding workspace.
-- Containers are dynamically scaled using Kubernetes to handle increasing user demands.
+- Implemented a scalable collaborative online coding platform with multi-user support, similar to Replit, enabling real-time
+  code sharing, and collaboration.
+- Provisioned dedicated pods for each user to ensure an isolated development environment and utilized Kubernetes ingress
+  controllers to dynamically route user-specific requests to corresponding pods.
 
 ### 2. **Real-Time Collaboration**
 - Multiple users can collaborate on the same project in real-time.
@@ -77,8 +79,31 @@ Welcome to the **Collaborative Cloud IDE**! This project is an online integrated
 
 ### AI Assistant 
 ![App Screenshot](https://raw.githubusercontent.com/SpartaNeel1010/CLOUD-IDE/refs/heads/main/Images/Screenshot%20(426).png)
+
 ### AI Assistant - 2
 ![App Screenshot](https://raw.githubusercontent.com/SpartaNeel1010/CLOUD-IDE/refs/heads/main/Images/Screenshot%20(427).png)
+
+## Copy base file from S3 to Project's folder
+![App Screenshot](https://raw.githubusercontent.com/SpartaNeel1010/CLOUD-IDE/refs/heads/main/Images/Arch-S3-Copy.png)
+
+### Kubernetes Initial State
+![App Screenshot](https://raw.githubusercontent.com/SpartaNeel1010/CLOUD-IDE/refs/heads/main/Images/Arch-k8s-inital.png)
+
+## Resource Provisioning API
+![App Screenshot](https://raw.githubusercontent.com/SpartaNeel1010/CLOUD-IDE/refs/heads/main/Images/Arch-res-proven-api.png)
+
+### Frontend device and Backend pod connection
+![App Screenshot](https://raw.githubusercontent.com/SpartaNeel1010/CLOUD-IDE/refs/heads/main/Images/Arch-communication.png)
+
+## Multiple User Collaboration
+![App Screenshot](https://raw.githubusercontent.com/SpartaNeel1010/CLOUD-IDE/refs/heads/main/Images/Arch-multiple-users.png)
+
+## Microservices Architecture
+![App Screenshot](https://raw.githubusercontent.com/SpartaNeel1010/CLOUD-IDE/refs/heads/main/Images/Arch-microservices.png)
+
+
+
+
 
 ## Installation and Setup
 
