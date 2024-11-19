@@ -122,7 +122,7 @@ function Dashboard({ }) {
     }
   }
   const handleOverlayClick = (e) => {
-    if (e.target.className === 'modal-overlay') {
+    if (e.target.className === 'modal-overlay2') {
       setIsModalOpen(false);
     }
   };
@@ -148,8 +148,8 @@ function Dashboard({ }) {
             </button>
 
             {isModalOpen && (
-              <div className="modal-overlay" onClick={handleOverlayClick}>
-                <div className="modal">
+              <div className="modal-overlay2" onClick={handleOverlayClick}>
+                <div className="modal2">
                   <div className="modal-header">
                     <h2>Create New Project</h2>
                     <button

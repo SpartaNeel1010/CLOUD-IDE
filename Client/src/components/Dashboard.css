@@ -115,8 +115,30 @@ body, html {
   z-index: 1000;
   animation: fadeIn 0.2s ease-out;
 }
+.modal-overlay2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
 
 .modal {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  animation: slideIn 0.2s ease-out;
+}
+.modal2 {
   background-color: #1e1e1e;
   border-radius: 8px;
   width: 90%;
@@ -252,6 +274,10 @@ body, html {
 /* Responsive styles */
 @media (max-width: 600px) {
   .modal {
+    width: 95%;
+    margin: 0 10px;
+  }
+  .modal2 {
     width: 95%;
     margin: 0 10px;
   }

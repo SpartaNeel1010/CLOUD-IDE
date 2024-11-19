@@ -167,8 +167,8 @@ const Navbar = ({ selectedProjectName }) => {
       </div>
 
       {isInviteModalOpen && (
-        <div className="modal-overlay2">
-          <div className="modal2" ref={modalRef}>
+        <div className="modal-overlay">
+          <div className="modal" ref={modalRef}>
             <h2>Sign up or login to your account to collaborate with friends 💻</h2>
             <p>{window.location.href}</p>
             <button className="copy-button" onClick={handleCopyLink}>
