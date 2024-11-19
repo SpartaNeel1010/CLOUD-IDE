@@ -358,8 +358,7 @@
     text-align: center;
   }
   
-  .copy-button,
-  .close-button {
+  .copy-button {
     margin: 10px;
     padding: 8px 16px;
     background: #007bff;
@@ -369,8 +368,7 @@
     cursor: pointer;
   }
   
-  .copy-button:hover,
-  .close-button:hover {
+  .copy-button:hover {
     background: #0056b3;
   }
 

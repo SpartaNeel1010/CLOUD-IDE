@@ -89,15 +89,36 @@ const Navbar = ({ selectedProjectName }) => {
 
   const handleCopyLink = () => {
     const link = `Sign up or login to your account to collaborate with friends 💻\n${window.location.href}`;
-    navigator.clipboard.writeText(link)
-      .then(() => {
-        // Display a temporary confirmation message instead of alert
+  
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(link)
+        .then(() => {
+          setCopySuccess(true);
+          setTimeout(() => setCopySuccess(false), 2000); // Hide the confirmation after 2 seconds
+        })
+        .catch(err => {
+          console.error('Failed to copy text: ', err);
+        });
+    } else {
+      // Fallback method using document.execCommand
+      const textArea = document.createElement('textarea');
+      textArea.value = link;
+      textArea.style.position = 'fixed'; // Prevent scrolling to the bottom of the page
+      textArea.style.opacity = '0'; // Hide the element
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+  
+      try {
+        document.execCommand('copy');
         setCopySuccess(true);
         setTimeout(() => setCopySuccess(false), 2000); // Hide the confirmation after 2 seconds
-      })
-      .catch(err => {
-        console.error('Failed to copy text: ', err);
-      });
+      } catch (err) {
+        console.error('Fallback: Failed to copy text: ', err);
+      }
+  
+      document.body.removeChild(textArea);
+    }
   };
 
   return (
