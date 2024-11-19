@@ -338,7 +338,7 @@
     animation: dropdownFade 0.1s ease-out;
   }
 
-  .modal-overlay {
+  .modal-overlay2{
     position: fixed;
     top: 0;
     left: 0;
@@ -350,7 +350,7 @@
     align-items: center;
   }
   
-  .modal {
+  .modal2{
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -375,7 +375,7 @@
   }
 
   /* General VSCode dark theme styling */
-.modal {
+.modal2{
   background: #1e1e1e; /* VSCode dark background */
   color: #d4d4d4; /* Light grey text */
   padding: 20px;
@@ -426,7 +426,7 @@
   fill: currentColor;
 }
 
-.modal {
+.modal2{
   display: flex;
   flex-direction: column;
   align-items: center; /* Centers child elements horizontally */
@@ -467,7 +467,7 @@
   text-align: center;
 }
 
-.modal p {
+.modal2p {
   background-color: #2a2a2a; /* Slightly lighter black */
   padding: 10px; /* Adds padding inside the background */
   border-radius: 5px; /* Rounds the corners */
